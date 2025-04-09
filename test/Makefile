@@ -1,46 +1,39 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    makefile                                           :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: malsheri <malsheri@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/05 16:30:23 by amagoury          #+#    #+#              #
-#    Updated: 2025/04/06 15:59:58 by malsheri         ###   ########.fr        #
+#    Updated: 2025/04/09 14:46:24 by malsheri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	cub3D
 
-SRCS		= test2.c
+SRCS		= main.c player.c
 
 OBJS 		=	$(SRCS:.c=.o)
 
 CC 			= cc
 
-CFLAGS	= -Wall -Werror -Wextra -Iminilibx -IGNL -Iprintf -fsanitize=address -g3
+CFLAGS	= -Wall -Werror -Wextra -Iminilibx_opengl -IGNL -fsanitize=address -g3
 
-LIBFT = libft/libft.a
 
-PRINTF = printf/libftprintf.a
+MLX 	= ../minilibx_opengl/libmlx.a
 
-MLX 	= minilibx/libmlx.a
-
-MLX_FLAGS = -Lminilibx -lmlx -framework OpenGL -framework AppKit
+MLX_FLAGS = -L../minilibx_opengl -lmlx -framework OpenGL -framework AppKit
 
 all : $(NAME)
 
-$(LIBFT):	
-	$(MAKE) -C libft
 
 $(MLX):
 	$(MAKE) -C minilibx
 
-$(PRINTF):
-	$(MAKE) -C printf
 
 	
-$(NAME) : $(OBJS) $(LIBFT) $(PRINTF) $(MLX)
+$(NAME) : $(OBJS) $(MLX)
 	$(CC)	$(CFLAGS) $(OBJS) $(MLX_FLAGS) -o $(NAME) $(LIBFT) $(MLX) $(PRINTF)
 
 %.o: %.c
