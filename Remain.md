@@ -1,9 +1,4 @@
-# README: cub3d Project
-
-## Project Overview
-cub3d is a 42 school project where students create a raycasting engine to simulate a 3D environment, similar to the classic game Wolfenstein 3D.
-
-## Progress So Far (60-70% Complete)
+## Progress So Far (40-60% Complete)
 We've implemented the core functionality of the cub3d project:
 - Ray casting algorithm for 3D rendering
 - Basic player movement and rotation controls
