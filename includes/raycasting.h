@@ -1,7 +1,9 @@
 #ifndef RAYCASTING_H
 #define RAYCASTING_H
 
-#include "cub_3D.h"
+
+# define TILE_SIZE 64
+#include "../cub3d.h"
 
 
 typedef struct s_ray {
@@ -40,6 +42,7 @@ typedef struct s_map {
     double  x_scale_factor;
     double  y_scale_factor;
     double  small_factor;
+    double  big_factor;
     int     map_bg_color;
     int     map_wall_color;
     int     map_ray_color;
@@ -48,8 +51,8 @@ typedef struct s_map {
 
 typedef struct s_player {
     t_point  pos;
-    // t_circle  circle; // Uncompleted
-    // t_rectangle  rect; // Uncompleted
+    t_circle  circle;
+    t_rect  rect;
     t_point  l_start;
     t_point  l_end;
     int      radius;
@@ -59,6 +62,7 @@ typedef struct s_player {
     int      walk_dir;
     float     r_angle;
     float     turn_speed;
+    float     walk_speed;
     t_ray    rays[NUM_RAYS];
     t_map    map3d;
     double   dist_proj_plane;

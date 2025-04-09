@@ -1,31 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_3D.h                                           :+:      :+:    :+:   */
+/*   shapes.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malsheri <malsheri@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/05 16:37:59 by amagoury          #+#    #+#             */
-/*   Updated: 2025/04/09 10:58:21 by malsheri         ###   ########.fr       */
+/*   Created: 2025/04/09 15:33:23 by malsheri          #+#    #+#             */
+/*   Updated: 2025/04/09 15:33:24 by malsheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB_3D_H
-# define CUB_3D_H
-
-# include <fcntl.h>
-# include "libft/libft.h"
-# include "minilibx_opengl/mlx.h"
-# include "GNL/get_next_line_bonus.h"
-# include "printf/ft_printf.h"
-#include "raycasting.h"
-
+#ifndef SHAPES_H
+# define SHAPES_H
 
 typedef struct s_point
 {
-    int		x;
-    int		y;
-}	t_point;
+	double			x;
+	double			y;
+}			t_point;
 
+typedef struct s_colored_point
+{
+	double			x;
+	double			y;
+	int				color;
+}			t_colored_point;
+
+typedef struct s_circle
+{
+	int				x;
+	int				y;
+	int				radius;
+}			t_circle;
+
+typedef struct s_rect
+{
+	int				x;
+	int				y;
+	int				width;
+	int				height;
+}			t_rect;
 
 #endif
