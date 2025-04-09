@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+         #
+#    By: malsheri <malsheri@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/05 16:30:23 by amagoury          #+#    #+#              #
-#    Updated: 2025/04/05 16:31:09 by amagoury         ###   ########.fr        #
+#    Updated: 2025/04/06 15:59:58 by malsheri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	cub3D
 
-SRCS		=
+SRCS		= test2.c
 
 OBJS 		=	$(SRCS:.c=.o)
 
