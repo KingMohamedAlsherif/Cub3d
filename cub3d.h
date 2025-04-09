@@ -6,7 +6,7 @@
 /*   By: malsheri <malsheri@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 16:37:59 by amagoury          #+#    #+#             */
-/*   Updated: 2025/04/09 16:55:18 by malsheri         ###   ########.fr       */
+/*   Updated: 2025/04/09 18:49:31 by malsheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include "includes/raycasting.h"
 # include "includes/cons.h"
 #include "includes/shapes.h"
+#include <math.h>
 
 typedef struct s_point
 {
