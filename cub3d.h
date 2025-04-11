@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malsheri <malsheri@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 16:37:59 by amagoury          #+#    #+#             */
-/*   Updated: 2025/04/11 13:58:25 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/04/11 17:16:52 by malsheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,17 @@
 #include "includes/cons.h"
 #include "includes/colors.h"
 # include "includes/keys.h"
-// # include "includes/raycasting.h"
+# include "includes/raycasting.h"
 # include "includes/cons.h"
 #include "includes/shapes.h"
 #include <math.h>
 #include <stdbool.h>
 
-// typedef struct s_point
-// {
-//     int		x;
-//     int		y;
-// }	t_point;
+typedef struct s_point
+{
+    int		x;
+    int		y;
+}	t_point;
 
 
 typedef struct s_cub
