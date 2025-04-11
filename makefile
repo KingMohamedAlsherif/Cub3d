@@ -1,32 +1,34 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    makefile                                           :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: malsheri <malsheri@student.42abudhabi.a    +#+  +:+       +#+         #
+#    By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/05 16:30:23 by amagoury          #+#    #+#              #
-#    Updated: 2025/04/06 15:59:58 by malsheri         ###   ########.fr        #
+#    Updated: 2025/04/11 15:55:58 by amagoury         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	cub3D
 
-SRCS		= test2.c
+SRCS		= src/parser/parsing.c cub.c GNL/get_next_line_bonus.c GNL/get_next_line_utils_bonus.c 
 
 OBJS 		=	$(SRCS:.c=.o)
 
 CC 			= cc
 
-CFLAGS	= -Wall -Werror -Wextra -Iminilibx -IGNL -Iprintf -fsanitize=address -g3
+CFLAGS	= -Iminilibx_opengl -IGNL -Iprintf
+ #-fsanitize=address -g3
 
 LIBFT = libft/libft.a
 
 PRINTF = printf/libftprintf.a
 
-MLX 	= minilibx/libmlx.a
 
-MLX_FLAGS = -Lminilibx -lmlx -framework OpenGL -framework AppKit
+MLX 	= minilibx_opengl/libmlx.a
+
+MLX_FLAGS = -Lminilibx_opengl -lmlx -framework OpenGL -framework AppKit
 
 all : $(NAME)
 
@@ -34,7 +36,7 @@ $(LIBFT):
 	$(MAKE) -C libft
 
 $(MLX):
-	$(MAKE) -C minilibx
+	$(MAKE) -C minilibx_opengl
 
 $(PRINTF):
 	$(MAKE) -C printf
@@ -54,7 +56,7 @@ clean :
 fclean: clean
 	$(MAKE) -C libft fclean
 	$(MAKE) -C printf fclean
-	$(MAKE) -C minilibx clean
+	$(MAKE) -C minilibx_opengl clean
 	rm -rf $(NAME)
 
 re:	fclean all
