@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_player.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malsheri <malsheri@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:39:28 by malsheri          #+#    #+#             */
-/*   Updated: 2025/04/09 16:52:09 by malsheri         ###   ########.fr       */
+/*   Updated: 2025/04/11 12:48:54 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ void    init_map(t_cub  *cub)
     cub->player.map3d.map_ray_color = BRIGHT_YELLOW;
 }
 
-void set_minimap_scalefactor(t_cub *cub) {
+void set_minimap_scalefactor(t_cub *cub) 
+{
     double mini_width;
     double mini_height;
     t_map *mini_map;
