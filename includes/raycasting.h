@@ -4,7 +4,7 @@
 
 # define TILE_SIZE 64
 #include "../cub3d.h"
-
+#include <stdbool.h>
 
 typedef struct s_ray {
     t_point  h_wallhit;
@@ -37,8 +37,8 @@ typedef struct s_ray {
 
 typedef struct s_map {
     char    **map;
-    int     width;
-    int     height;
+    // int   width;
+    // int     height;
     double  x_scale_factor;
     double  y_scale_factor;
     double  small_factor;
