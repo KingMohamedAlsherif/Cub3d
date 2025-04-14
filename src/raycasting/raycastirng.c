@@ -12,88 +12,74 @@
 
 #include "cub3d.h"
 
-// check the unit circle
-int unit_circle(float angle, char c) 
-{
-    if (c == 'x')
-    {
-        if (angle > 0 && angle < M_PI)
-            return (1);
-    }
-    else if (c == 'y')
-    {
-        if (angle > (M_PI / 2) && angle < (3 * M_PI) / 2)
-            return (1);
-    }
-    return (0);
-}
-
 // check the intersection
-int inter_check(float angle, float *inter, float *step, int is_horizon)
+int	inter_check(float angle, float *inter, float *step, int is_horizon)
 {
-    if (is_horizon)
-    {
-        if (angle > 0 && angle < M_PI)
-        {
-            *inter += TILE_SIZE;
-            return (-1);
-        }
-        *step *= -1;
-    }
-    else
-    {
-        if (!(angle > M_PI / 2 && angle < 3 * M_PI / 2))
-        {
-            *inter += TILE_SIZE;
-            return (-1);
-        }
-        *step *= -1;
-    }
-    return (1);
+	if (is_horizon)
+	{
+		if (angle > 0 && angle < M_PI)
+		{
+			*inter += TILE_SIZE;
+			return (-1);
+		}
+		*step *= -1;
+	}
+	else
+	{
+		if (!(angle > M_PI / 2 && angle < 3 * M_PI / 2))
+		{
+			*inter += TILE_SIZE;
+			return (-1);
+		}
+		*step *= -1;
+	}
+	return (1);
 }
 
 // check the wall hit
-int wall_hit(float x, float y, t_cub *mlx) 
+int	wall_hit(float x, float y, t_cub *cub)
 {
-    int x_m;
-    int y_m;
+	int	x_m;
+	int	y_m;
 
-    if (x < 0 || y < 0)
-        return (0);
-    x_m = floor(x / TILE_SIZE);
-    y_m = floor(y / TILE_SIZE);
-    if ((y_m >= mlx->map->map_height || x_m >= mlx->map->map_width))
-        return (0);
-    if (mlx->map->map_arr[y_m] && x_m <= (int)strlen(mlx->map->map_arr[y_m]))
-        if (mlx->map->map_arr[y_m][x_m] == '1')
-            return (0);
-    return (1);
+	if (x < 0 || y < 0)
+		return (0);
+	x_m = floor(x / TILE_SIZE);
+	y_m = floor(y / TILE_SIZE);
+	if ((y_m >= cub->map->map_height || x_m >= cub->map->map_width))
+		return (0);
+	if (cub->map->map_arr[y_m] && x_m <= (int)ft_strlen(cub->map->map_arr[y_m]))
+		if (cub->map->map_arr[y_m][x_m] == '1')
+			return (0);
+	return (1);
 }
 
 // get the horizontal intersection
-float get_h_inter(t_cub *mlx, float angl) 
+float	get_h_inter(t_cub *cub, float angl)
 {
-    float h_x;
-    float h_y;
-    float x_step;
-    float y_step;
-    int pixel;
+	float	h_x;
+	float	h_y;
+	float	x_step;
+	float	y_step;
+	int		pixel;
 
-    y_step = TILE_SIZE;
-    x_step = TILE_SIZE / tan(angl);
-    h_y = floor(mlx->player->plyr_y / TILE_SIZE) * TILE_SIZE;
-    pixel = inter_check(angl, &h_y, &y_step, 1);
-    h_x = mlx->player->plyr_x + (h_y - mlx->player->plyr_y) / tan(angl);
-    if ((unit_circle(angl, 'y') && x_step > 0) || (!unit_circle(angl, 'y') && x_step < 0))
-        x_step *= -1;
-    while (wall_hit(h_x, h_y - pixel, mlx))
-    {
-        h_x += x_step;
-        h_y += y_step;
-    }
-    mlx->ray->hor_x = h_x;
-    mlx->ray->hor_y = h_y;
-    return (sqrt(pow(h_x - mlx->player->plyr_x, 2) + pow(h_y - mlx->player->plyr_y, 2)));
+	y_step = TILE_SIZE;
+	x_step = TILE_SIZE / tan(angl);
+	h_y = floor(cub->player->plyr_y / TILE_SIZE) * TILE_SIZE;
+	pixel = inter_check(angl, &h_y, &y_step, 1);
+	h_x = cub->player->plyr_x + (h_y - cub->player->plyr_y) / tan(angl);
+	if ((unit_circle(angl, 'y') && x_step > 0) || (!unit_circle(angl, 'y')
+			&& x_step < 0))
+		x_step *= -1;
+	while (wall_hit(h_x, h_y - pixel, cub))
+	{
+		h_x += x_step;
+		h_y += y_step;
+	}
+	cub->ray->hor_x = h_x;
+	cub->ray->hor_y = h_y;
+	return (sqrt(pow(h_x - cub->player->plyr_x, 2) + pow(h_y
+				- cub->player->plyr_y, 2)));
 }
 
 // get the vertical intersection

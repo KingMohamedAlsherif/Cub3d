@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: malsheri <malsheri@student.42abudhabi.a    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/13 15:46:11 by malsheri          #+#    #+#             */
-/*   Updated: 2025/04/13 16:13:17 by malsheri         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "cub3d.h"
 
@@ -18,6 +7,15 @@ void	my_pixel_put(t_mlx_img *img, int x, int y, int color)
 
 	dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
 	*(unsigned int *)dst = color;
+}
+
+float	nor_angle(float angle)
+{
+	if (angle < 0)
+		angle += (2 * M_PI);
+	if (angle > (2 * M_PI))
+		angle -= (2 * M_PI);
+	return (angle);
 }
 
 void	draw_wall(t_cub *cub, int t_pix, int b_pix, double wall_h)
@@ -41,15 +39,6 @@ void	draw_wall(t_cub *cub, int t_pix, int b_pix, double wall_h)
 		my_mlx_pixel_put(cub, cub->ray->indx, t_pix++, color);
 		y_o += fact;
 	}
-}
-
-float	nor_angle(float angle)
-{
-	if (angle < 0)
-		angle += (2 * M_PI);
-	if (angle > (2 * M_PI))
-		angle -= (2 * M_PI);
-	return (angle);
 }
 
 void	render_wall(t_cub *cub, int ray)

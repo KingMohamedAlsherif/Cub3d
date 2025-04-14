@@ -79,7 +79,7 @@ int	check_wall(t_cub *game)
 			return (-1);
 		i++;
 	}
-	i = 1;
+	i = 1;`
 	while (i < game->rows)
 	{
 		if (game->map[i][0] != '1')
