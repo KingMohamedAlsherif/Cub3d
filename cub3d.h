@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malsheri <malsheri@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 16:37:59 by amagoury          #+#    #+#             */
-/*   Updated: 2025/04/13 16:07:53 by malsheri         ###   ########.fr       */
+/*   Updated: 2025/04/17 19:42:34 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,70 +43,6 @@ typedef struct s_point
     int		x;
     int		y;
 }	t_point;
-
-
-// typedef struct s_cub
-// {
-// 	void				*mlx;
-// 	void				*win;
-// 	// t_img				img; // uncompleted
-// 	// t_img2				img2[4];  // uncompleted
-// 	char				**rgb;
-// 	char				**xpm;
-// 	char				**map;
-// 	char				**map_cpy;
-// 	unsigned long		floor;
-// 	unsigned long		ceiling;
-// 	// wall  checker
-// 	int   width;
-//     int     height;
-// 	// uint32_t			texture[4][TEXTURE_HEIGHT * TEXTURE_WIDTH]; // uncompleted
-// 	// t_player			player;
-// 	// t_keys				keys; // uncompleted
-// 	int					*color_buffer;
-// 	int					*tex;
-// 	double				proj_wall_h;
-// 	int					t_size;
-// 	int					wall_strip_height;
-// 	int					wall_top_pixel;
-// 	int					wall_bottom_pixel;
-// 	char				*map_1d;
-// 	int					map_1d_len;
-// 	char				*c_rgb;
-// 	char				*f_rgb;
-// 	bool				color_flag;
-// 	int					fd;
-// 	int					no_pos;
-// 	int					so_pos;
-// 	int					we_pos;
-// 	int					ea_pos;
-// 	int					floor_pos;
-// 	int					ceiling_pos;
-// 	int					max;
-// 	// t_dir				dir; // uncompleted
-// 	int					p_flag;
-// 	double				scale_factor;
-// 	int					fps;
-// 	double				aim_factor;
-// 	void				*gun;
-// 	// t_contorl_box		control_box; // uncompleted
-// 	double				last_menu_action_time;
-// 	// t_button_controls	button_controls; // uncompleted
-// 	//check rows && cols
-// 	int		rows;
-// 	int		cols;
-// 	// open windows
-// 	int		moves;
-// 	void	*window;
-// }				t_cub;
-
-// typedef struct s_textures
-// {
-// 	char	*north;
-// 	char 	*south;
-// 	char	*west;
-// 	char	*east;
-// }t_textures;
 
 typedef struct s_map
 {
@@ -233,6 +169,31 @@ void  render_color_buffer(t_cub *cub);
 // bool  is_inside_map(double x, double y, t_player *player);
 void  render_map(t_cub *cub);
 int   return_color(t_cub  *cub, int   tilecolor);
+void	start_the_game(t_cub *cub);
+int game_loop(void  *param);
+void    hook(t_cub  *cub, double    move_x, double  move_y);
+t_map *init_argument();
+void    init_player_data(t_cub  cub);
+int	key_reles(t_mlx_key_data keydata, t_cub *cub);
+int	mlx_key(t_mlx_key_data keydata, void *ml);
+void    rotate_player(t_cub *cub, int i);
+int	check_collision(t_map *data, float new_x, float new_y);
+void	move_player(t_cub *cub, double move_x, double move_y);
+int	inter_check(float angle, float *inter, float *step, int is_horizon);
+int	wall_hit(float x, float y, t_cub *cub);
+float	get_h_inter(t_cub *mlx, float angl);
+float	get_v_inter(t_cub *mlx, float angl);
+void	cast_rays(t_cub *mlx);
+t_txtdata	*get_txt(t_cub *cub, int flag);
+double	texture_x(t_cub *cub, t_txtdata *texture, int flag);
+void	draw_floor_ceiling(t_cub *cub, int ray, int t_pix, int b_pix);
+int	unit_circle(float angle, char c);
+void	my_pixel_put(t_mlx_img *img, int x, int y, int color);
+void	draw_wall(t_cub *cub, int t_pix, int b_pix, double wall_h);
+float	nor_angle(float angle);
+void	render_wall(t_cub *cub, int ray);
+
+
 
 // ------------> paresing FUNCTIONS <------------
 int	map_name(char *map);
