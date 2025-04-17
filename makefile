@@ -1,18 +1,19 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
+#    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+         #
+#    By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/05 16:30:23 by amagoury          #+#    #+#              #
-#    Updated: 2025/04/11 15:55:58 by amagoury         ###   ########.fr        #
+#    Updated: 2025/04/17 16:51:59 by aishamagour      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	cub3D
 
-SRCS		= src/parser/parsing.c cub.c GNL/get_next_line_bonus.c GNL/get_next_line_utils_bonus.c 
+SRCS		= src/parser/map_parsing1.c  src/parser/map_parsing2.c cub.c GNL/get_next_line_bonus.c GNL/get_next_line_utils_bonus.c \
+				src/parser/utils.c   src/parser/color_parsing.c
 
 OBJS 		=	$(SRCS:.c=.o)
 

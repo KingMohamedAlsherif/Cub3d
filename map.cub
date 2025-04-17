@@ -4,8 +4,8 @@ SO texture_south.xpm
 WE texture_west.xpm
 EA texture_east.xpm
 S sprite.xpm
-F 255,255,255
-C 0,0,0
+F 220,100,0
+C 
 
 1111111111
 1000000001

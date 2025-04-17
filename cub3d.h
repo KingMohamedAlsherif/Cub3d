@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malsheri <malsheri@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 16:37:59 by amagoury          #+#    #+#             */
-/*   Updated: 2025/04/11 17:16:52 by malsheri         ###   ########.fr       */
+/*   Updated: 2025/04/17 18:43:35 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef CUB_3D_H
 # define CUB_3D_H
@@ -22,22 +23,42 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include "includes/cons.h"
-#include "includes/colors.h"
-# include "includes/keys.h"
-# include "includes/raycasting.h"
-# include "includes/cons.h"
-#include "includes/shapes.h"
+// #include "includes/cons.h"
+// #include "includes/colors.h"
+// # include "includes/keys.h"
+// # include "includes/raycasting.h"
+// # include "includes/cons.h"
+// #include "includes/shapes.h"
 #include <math.h>
 #include <stdbool.h>
+#define EXIT_FAILURE 1
+#define EXIT_SUCCESS 0
 
-typedef struct s_point
+// typedef struct s_point
+// {
+//     int		x;
+//     int		y;
+// }	t_point;
+
+// #define MAX_LINES 1000
+// #define MAX_LINE_LENGTH 1000
+typedef struct s_textures
 {
-    int		x;
-    int		y;
-}	t_point;
+	char    *north;
+	char    *south;
+	char    *west;
+	char    *east;
+} t_textures;
 
-
+typedef struct color
+{
+	int floor_red;
+	int floor_green;
+	int floor_blue;
+	int ceiling_red;
+	int ceiling_green;
+	int ceiling_blue;
+} t_color;
 typedef struct s_cub
 {
 	void				*mlx;
@@ -76,12 +97,14 @@ typedef struct s_cub
 	int					floor_pos;
 	int					ceiling_pos;
 	int					max;
+	// t_textures          textures;
 	// t_dir				dir; // uncompleted
 	int					p_flag;
 	double				scale_factor;
 	int					fps;
 	double				aim_factor;
 	void				*gun;
+	char				player; // set the char in parsing
 	// t_contorl_box		control_box; // uncompleted
 	double				last_menu_action_time;
 	// t_button_controls	button_controls; // uncompleted
@@ -91,15 +114,8 @@ typedef struct s_cub
 	// open windows
 	int		moves;
 	void	*window;
+	t_color 			colors;
 }				t_cub;
-
-typedef struct s_textures
-{
-	char	*north;
-	char 	*south;
-	char	*west;
-	char	*east;
-}t_textures;
 
 
 
@@ -122,5 +138,13 @@ void	get_map(char *read_map, t_cub *game);
 char	**get_map_from_file(char *read_map, t_cub *game);
 int	check_wall(t_cub *game);
 void	is_parsing(t_cub *game, char *file);
-
+int valid_characters(char **map, t_cub *game);
+int  check_characters(char c);
+void	free_map(t_cub *game);
+int  validate_color_string(const char *line);
+int  parse_ceiling_color(char *line, t_color *color);
+int  parse_floor_color(char *line, t_color *color);
+int is_color(char *line, int *color_idx, int *color_arr);
+void exit_failure(char *msg);
+// int check_texture(char *line, t_textures *textures);
 #endif
