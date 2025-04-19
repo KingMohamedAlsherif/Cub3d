@@ -4,8 +4,10 @@
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
+/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 16:37:59 by amagoury          #+#    #+#             */
+/*   Updated: 2025/04/17 19:42:34 by aishamagour      ###   ########.fr       */
 /*   Updated: 2025/04/17 18:43:35 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -23,25 +25,130 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
-// #include "includes/cons.h"
-// #include "includes/colors.h"
-// # include "includes/keys.h"
-// # include "includes/raycasting.h"
-// # include "includes/cons.h"
-// #include "includes/shapes.h"
 #include <math.h>
 #include <stdbool.h>
+
+# define M_PI 3.14159265358979323846
+# define ON_DESTROY 17
+# define MLX_KEY_ESCAPE 53
+# define MLX_KEY_W 13
+# define MLX_KEY_A 0
+# define MLX_KEY_S 1
+# define MLX_KEY_D 2
+# define MLX_KEY_LEFT 123
+# define MLX_KEY_RIGHT 124
+# define MLX_PRESS 2
+# define MLX_RELEASE 3
+# define MLX_REPEAT 1
+
+
+
+#define S_HEIGHT 1000
+#define S_WIDTH 1000
+#define TILE_SIZE 30
+#define FOV 60
+#define ROTATE_SPEED 0.2
+#define PLAYER_SPEED 4
+
+typedef struct s_point
+{
+    int		x;
+    int		y;
+}	t_point;
 #define EXIT_FAILURE 1
 #define EXIT_SUCCESS 0
 
-// typedef struct s_point
-// {
-//     int		x;
-//     int		y;
-// }	t_point;
+typedef struct s_map
+{
+	char **map_arr;
+	int map_width;
+	int map_height;
+	int map_st;
+	int map_end;
+	int wall_counter;
+	int plyr_counter;
+	int p_x; 
+	int p_y; 
+	char plyr_direction;
+} t_map;
 
-// #define MAX_LINES 1000
-// #define MAX_LINE_LENGTH 1000
+typedef struct s_mlx_key_data // the mlx key data structure
+{
+	int key;	// the key
+	int action; // the action
+} t_mlx_key_data;
+
+typedef struct s_file
+{
+	char **file_arr;
+	int filepath_len;
+	int stage;
+	int file_len;
+} t_file;
+
+typedef struct s_txtrs
+{
+	t_txtdata	*no;
+	t_txtdata	*so;
+	t_txtdata	*we;
+	t_txtdata	*ea;
+	int			f_arr[3];
+	int			c_arr[3];
+	int			f_color;
+	int			c_color;
+}				t_txtrs;
+
+
+typedef struct s_txtdata
+{
+	void *img;
+	char *addr;
+	int bpp;
+	int line_len;
+	int endian;
+	int width;
+	int height;
+} t_txtdata;
+
+typedef struct s_img
+{
+	void *background_img;
+	void *wall_img;
+	void *img;
+	char *addr;
+	char *pixel;
+	int bpp;
+	int line_len;
+	int endian;
+	int tx_width;
+	int tx_height;
+} t_img;
+
+typedef struct s_player
+{
+	int plyr_x;
+	int plyr_y;
+	double plyr_angle;
+	float fov_rd;
+	int rot_flag;
+	int r_l;
+	int u_d;
+	int m_x;
+	int m_y;
+} t_player;
+
+typedef struct s_ray
+{
+	int indx;
+	double ray_angle;
+	double hor_x;
+	double hor_y;
+	double ver_x;
+	double ver_y;
+	double distance;
+	int wall_flag;
+} t_ray;
+
 typedef struct s_textures
 {
 	char    *north;
@@ -61,76 +168,73 @@ typedef struct color
 } t_color;
 typedef struct s_cub
 {
-	void				*mlx;
-	void				*win;
-	// t_img				img; // uncompleted
-	// t_img2				img2[4];  // uncompleted
-	char				**rgb;
-	char				**xpm;
-	char				**map;
-	char				**map_cpy;
-	unsigned long		floor;
-	unsigned long		ceiling;
-	// wall  checker
-	int   width;
-    int     height;
-	// uint32_t			texture[4][TEXTURE_HEIGHT * TEXTURE_WIDTH]; // uncompleted
-	// t_player			player;
-	// t_keys				keys; // uncompleted
-	int					*color_buffer;
-	int					*tex;
-	double				proj_wall_h;
-	int					t_size;
-	int					wall_strip_height;
-	int					wall_top_pixel;
-	int					wall_bottom_pixel;
-	char				*map_1d;
-	int					map_1d_len;
-	char				*c_rgb;
-	char				*f_rgb;
-	bool				color_flag;
-	int					fd;
-	int					no_pos;
-	int					so_pos;
-	int					we_pos;
-	int					ea_pos;
-	int					floor_pos;
-	int					ceiling_pos;
-	int					max;
-	// t_textures          textures;
-	// t_dir				dir; // uncompleted
-	int					p_flag;
-	double				scale_factor;
-	int					fps;
-	double				aim_factor;
-	void				*gun;
-	char				player; // set the char in parsing
-	// t_contorl_box		control_box; // uncompleted
-	double				last_menu_action_time;
-	// t_button_controls	button_controls; // uncompleted
-	//check rows && cols
-	int		rows;
-	int		cols;
-	// open windows
-	int		moves;
-	void	*window;
-	t_color 			colors;
-}				t_cub;
+	void *mlx_ptr;
+	void *win_ptr;
+	t_file file;
+	t_txtrs texture;
+	t_map *map;
+	t_player *player;
+	t_img *img;
+	t_ray *ray;
+	t_txtrs *txtrs;
+} t_cub;
+
+typedef struct s_gnl
+{
+	char	*line;
+	bool	error;
+}	t_gnl;
+
+typedef struct s_atoi
+{
+	long	nbr;
+	bool	error;
+}	t_atoi;
 
 
+// ------------> UTILS FUNCTIONS <------------
+t_atoi	ft_atoi(const char *str);
+int	create_rgb(int *color_arr);
+void	calculate_angle(t_cub *cub, char direction, int x, int y);
+void	ft_free(void **ptr, char type);
+void	use_atoi(t_cub *cub, char *str_nbr, int *counter);
+static void	init_malloc(t_cub *cub);
+static void	init_structs(t_cub *cub, t_file *file, char *input_file);
+static void	init_txtr(t_txtdata *txtr);
+void	init(t_cub *cub, char *input_file);
+void	exit_failure(t_cub *cub, char *err_msg);
+int	exit_success(t_cub *cub);
 
 
 // ------------> RAYCASTING FUNCTIONS <------------
 void  render_color_buffer(t_cub *cub);
-// void  init_player_pos(t_player *player);
-// void  set_player(t_player *player, t_cub  *cub);
-// void  init_map(t_map *map, int width, int height);
-// void  set_minimap_scalefactor(t_cub *cub);
-// bool  maphaswallat(double x, double y, t_player *player);
-// int   get_map_at(int  i, int  j, t_player *player);
-// bool  is_inside_map(double x, double y, t_player *player);
 void  render_map(t_cub *cub);
 int   return_color(t_cub  *cub, int   tilecolor);
+void	start_the_game(t_cub *cub);
+int game_loop(void  *param);
+void    hook(t_cub  *cub, double    move_x, double  move_y);
+t_map *init_argument();
+void    init_player_data(t_cub  cub);
+int	key_reles(t_mlx_key_data keydata, t_cub *cub);
+int	mlx_key(t_mlx_key_data keydata, void *ml);
+void    rotate_player(t_cub *cub, int i);
+int	check_collision(t_map *data, float new_x, float new_y);
+void	move_player(t_cub *cub, double move_x, double move_y);
+int	inter_check(float angle, float *inter, float *step, int is_horizon);
+int	wall_hit(float x, float y, t_cub *cub);
+float	get_h_inter(t_cub *mlx, float angl);
+float	get_v_inter(t_cub *mlx, float angl);
+void	cast_rays(t_cub *mlx);
+t_txtdata	*get_txt(t_cub *cub, int flag);
+double	texture_x(t_cub *cub, t_txtdata *texture, int flag);
+void	draw_floor_ceiling(t_cub *cub, int ray, int t_pix, int b_pix);
+int	unit_circle(float angle, char c);
+void	my_pixel_put(t_img *img, int x, int y, int color);
+void	draw_wall(t_cub *cub, int t_pix, int b_pix, double wall_h);
+float	nor_angle(float angle);
+void	render_wall(t_cub *cub, int ray);
+int	key_release(t_mlx_key_data keydata, t_cub *game);
+
 
 // ------------> paresing FUNCTIONS <------------
 int	map_name(char *map);
@@ -138,6 +242,9 @@ void	get_map(char *read_map, t_cub *game);
 char	**get_map_from_file(char *read_map, t_cub *game);
 int	check_wall(t_cub *game);
 void	is_parsing(t_cub *game, char *file);
+void	parsing(t_cub *cub, char *input_file);
+
+
 int valid_characters(char **map, t_cub *game);
 int  check_characters(char c);
 void	free_map(t_cub *game);
@@ -145,6 +252,6 @@ int  validate_color_string(const char *line);
 int  parse_ceiling_color(char *line, t_color *color);
 int  parse_floor_color(char *line, t_color *color);
 int is_color(char *line, int *color_idx, int *color_arr);
-void exit_failure(char *msg);
+// void exit_failure(char *msg);
 // int check_texture(char *line, t_textures *textures);
 #endif

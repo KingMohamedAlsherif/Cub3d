@@ -12,10 +12,10 @@
 
 #include "../cub3d.h"
 
-void exit_failure(char *msg)
-{
-	ft_putstr_fd("Error\n", 2);
-	ft_putstr_fd(msg, 2);
-	exit(EXIT_FAILURE);
-}
+// void exit_failure(char *msg)
+// {
+// 	ft_putstr_fd("Error\n", 2);
+// 	ft_putstr_fd(msg, 2);
+// 	exit(EXIT_FAILURE);
+// }
 
