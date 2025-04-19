@@ -52,11 +52,11 @@ void	draw_floor_ceiling(t_cub *cub, int ray, int t_pix, int b_pix)
 	int	color;
 
 	i = b_pix;
-	color = cub->txtrs->f_color;
+	color = cub->texture.f_color;
 	while (i < S_HEIGHT)
 		my_mlx_pixel_put(cub, ray, i++, color);
 	i = 0;
-	color = cub->txtrs->c_color;
+	color = cub->texture.c_color;
 	while (i < t_pix)
 		my_mlx_pixel_put(cub, ray, i++, color);
 }

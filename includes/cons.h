@@ -15,7 +15,7 @@
 
 #include "../cub3d.h"
 
-# define TILE_SIZE 64
+// # define TILE_SIZE 64
 
 // # define TEX_WIDTH 32
 // # define TEX_HEIGHT 32

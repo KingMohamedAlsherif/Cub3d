@@ -10,7 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
+
+static void	ft_free(void *address, char target)
+{
+	if (!address || !target)
+		return ;
+	if (target == 'p')
+		free_ptr((void **)address);
+	else if (target == 'a')
+		free_arr((void ***)address);
+	else
+		return ;
+}
 
 int	is_color(t_cub *cub, char *line, int *color_idx, int *color_arr)
 {
@@ -19,7 +31,7 @@ int	is_color(t_cub *cub, char *line, int *color_idx, int *color_arr)
 	if (*line && ft_isdigit(*line))
 	{
 		if (*color_idx == 3)
-			exit_failure(cub, COLOR_ERR);
+			exit_failure(cub, "Error\nInvalid color format\n");
 		use_atoi(cub, line, &color_arr[(*color_idx)]);
 		return (ft_intlen(color_arr[(*color_idx)++]));
 	}

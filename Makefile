@@ -12,8 +12,9 @@
 
 NAME		=	cub3D
 
-SRCS		= src/parser/parsing.c cub.c GNL/get_next_line_bonus.c GNL/get_next_line_utils_bonus.c 
-
+SRCS		= src/parsing/parsing.c src/parsing/utils.c src/parsing/validate.c cub.c GNL/get_next_line_bonus.c GNL/get_next_line_utils_bonus.c \
+				src/exec.c src/init.c src/move src/raycasting.c src/render_texture.c src/render
+				
 OBJS 		=	$(SRCS:.c=.o)
 
 CC 			= cc

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 static void	file_len(t_cub *cub, char *input_file);
 static void	file_create(t_cub *cub, t_file *file, char *input_file);
@@ -27,7 +27,7 @@ void	parsing(t_cub *cub, char *input_file)
 	map = cub->map;
 	len = cub->file.filepath_len;
 	if ((len - 4) <= 0 || ft_strcmp(".cub", input_file + (len - 4)))
-		exit_failure(cub, INVALID_FILE_NAME);
+		exit_failure(cub, "Error\nInvalid file\n");
 	file_len(cub, input_file);
 	file_create(cub, file, input_file);
 	file_validate(cub, file, cub->map);
@@ -42,12 +42,12 @@ static void	file_len(t_cub *cub, char *input_file)
 
 	fd = open(input_file, O_RDONLY);
 	if (fd == -1)
-		exit_failure(cub, INVALID_FD);
+		exit_failure(cub, "Error: INVALID_FD - The specified file descriptor is invalid or not open.\n");
 	while (fd >= 0)
 	{
-		ret = ft_get_next_line(fd);
+		// ret = get_next_line(fd);
 		if (ret.error)
-			return ((void)close(fd), exit_failure(cub, READ_ERR));
+			return ((void)close(fd), exit_failure(cub, "READ_ERR: Failed to read from file.\n"));
 		if (!ret.line)
 			break ;
 		ft_free(&ret.line, 'p');
@@ -55,9 +55,9 @@ static void	file_len(t_cub *cub, char *input_file)
 	}
 	close(fd);
 	if (!cub->file.file_len)
-		exit_failure(cub, INVALID_FILE_EMPTY);
+		exit_failure(cub, "File is empty.\n");
 	if (cub->file.file_len < 9)
-		exit_failure(cub, INVALID_FILE_NOT_COMPLETE);
+		exit_failure(cub, "File is incomplete.\n");
 }
 
 static void	file_create(t_cub *cub, t_file *file, char *input_file)
@@ -68,20 +68,20 @@ static void	file_create(t_cub *cub, t_file *file, char *input_file)
 
 	fd = open(input_file, O_RDONLY);
 	if (fd == -1)
-		exit_failure(cub, INVALID_FD);
+		exit_failure(cub, "Error: INVALID_FD - The specified file descriptor is invalid or not open.\n");
 	file->file_arr = (char **)ft_calloc(file->file_len + 1, sizeof(char *));
 	if (!file->file_arr)
-		exit_failure(cub, MALLOC_ERR);
+		exit_failure(cub, "Error\nFailed to malloc.\n");
 	idx = 0;
 	while (fd >= 0)
 	{
-		ret = ft_get_next_line(fd);
+		// ret = get_next_line(fd);
 		if (ret.error)
-			return ((void)close(fd), exit_failure(cub, READ_ERR));
+			return ((void)close(fd), exit_failure(cub, "READ_ERR: Failed to read from file.\n"));
 		if (!ret.line)
 			break ;
 		if (ft_istab(ret.line))
-			exit_failure(cub, TAB_ERR);
+			exit_failure(cub, "Error: Tab characters are not allowed in the file.\n");
 		file->file_arr[idx++] = ret.line;
 	}
 	close(fd);
@@ -95,7 +95,7 @@ static void	map_create(t_cub *cub, t_map *map, int st, int end)
 	file_arr = cub->file.file_arr;
 	map->map_arr = ft_calloc(map->map_height + 1, sizeof(char *));
 	if (!map->map_arr)
-		exit_failure(cub, MALLOC_ERR);
+		exit_failure(cub, "Error\nFailed to malloc.\n");
 	idx = 0;
 	while (st <= end && file_arr[st] && *file_arr[st])
 	{
@@ -103,15 +103,15 @@ static void	map_create(t_cub *cub, t_map *map, int st, int end)
 			continue ;
 		map->map_arr[idx] = set_map_line(cub, map, file_arr[st]);
 		if (!map->map_arr[idx])
-			exit_failure(cub, MALLOC_ERR);
+			exit_failure(cub, "Error\nFailed to malloc.\n");
 		st++;
 		idx++;
 	}
 	map->map_height = idx;
 	if (map->map_height < 3)
-		exit_failure(cub, MAP_HEIGHT_ERR);
+		exit_failure(cub, "Error\nInvalid map, the map is less than 3 lines.\n");
 	if (!ft_iswall(map->map_arr[0]) || !ft_iswall(map->map_arr[idx - 1]))
-		exit_failure(cub, MAP_WALL_ERR);
+		exit_failure(cub,"Error\nInvalid map, the map is less than 3 lines.\n");
 }
 
 static void	map_validate(t_cub *cub, t_map *map, char **map_arr, char invalid)
@@ -132,13 +132,13 @@ static void	map_validate(t_cub *cub, t_map *map, char **map_arr, char invalid)
 			else
 				continue ;
 			if (x > 0 && map_arr[y][x - 1] == invalid)
-				return (exit_failure(cub, MAP_SPACE_ERR));
+				return (exit_failure(cub, "Error\nInvalid map, invalid spaces.\n"));
 			if (x < map->map_width - 1 && map_arr[y][x + 1] == invalid)
-				return (exit_failure(cub, MAP_SPACE_ERR));
+				return (exit_failure(cub, "Error\nInvalid map, invalid spaces.\n"));
 			if (y > 0 && map_arr[y - 1][x] == invalid)
-				return (exit_failure(cub, MAP_SPACE_ERR));
+				return (exit_failure(cub, "Error\nInvalid map, invalid spaces.\n"));
 			if (y < map->map_height - 1 && map_arr[y + 1][x] == invalid)
-				return (exit_failure(cub, MAP_SPACE_ERR));
+				return (exit_failure(cub, "Error\nInvalid map, invalid spaces.\n"));
 		}
 	}
 }
@@ -188,7 +188,7 @@ static void	map_validate(t_cub *cub, t_map *map, char **map_arr, char invalid)
 		-	we skip the empty lines
 		-	we set the map line
 			(so that all lines are equal in length, we fill with spaces)
-		-	if the map line is NULL we exit with MALLOC_ERR
+		-	if the map line is NULL we exit with "Error\nFailed to malloc.\n"
 		-	we increment the st and idx
 		-	we set the new map_end
 		-	we set the map_height

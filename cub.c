@@ -12,25 +12,20 @@
 
 #include "cub3d.h"
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-    t_cub game;
+	t_cub	cub;
 
-    if (ac != 2)
-    {
-        (write(2, "No enough args\n", 15), exit(1));
-    }
-    is_parsing(&game, av[1]);
-    printf("Columns: %d, Rows: %d\n", game.cols, game.rows); // Debug print
-
-    game.mlx = mlx_init();
-    // if (!game.mlx)
-    //     return (1);
-
-    game.window = mlx_new_window(game.mlx,1200, 1200, "cub3D for now");
-    // if (!game.window)
-    //     return (1);
-
-    mlx_loop(game.mlx);
-    return (0);
+	if (ac != 2)
+	{
+		ft_printf(2, "%s\n", "Invalid arguments");
+		exit(EXIT_FAILURE);
+	}
+	init(&cub, av[1]);
+	cub.mlx_ptr = mlx_init();
+	if (!cub.mlx_ptr)
+		exit_failure(&cub, "Error\nFailed to initialize mlx");
+	// parsing(&cub, av[1]);
+	start_the_game(&cub);
+	return (0);
 }

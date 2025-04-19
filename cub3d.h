@@ -23,13 +23,25 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "includes/cons.h"
-// #include "includes/colors.h"
 # include "includes/keys.h"
-// # include "includes/raycasting.h"
 # include "includes/cons.h"
-// #include "includes/shapes.h"
 #include <math.h>
 #include <stdbool.h>
+
+# define M_PI 3.14159265358979323846
+# define ON_DESTROY 17
+# define MLX_KEY_ESCAPE 53
+# define MLX_KEY_W 13
+# define MLX_KEY_A 0
+# define MLX_KEY_S 1
+# define MLX_KEY_D 2
+# define MLX_KEY_LEFT 123
+# define MLX_KEY_RIGHT 124
+# define MLX_PRESS 2
+# define MLX_RELEASE 3
+# define MLX_REPEAT 1
+
+
 
 #define S_HEIGHT 1000
 #define S_WIDTH 1000
@@ -62,27 +74,27 @@ typedef struct s_mlx_key_data // the mlx key data structure
 {
 	int key;	// the key
 	int action; // the action
-} mlx_key_data_t;
+} t_mlx_key_data;
 
-// typedef struct s_file
-// {
-// 	char **file_arr;
-// 	int filepath_len;
-// 	int stage;
-// 	int file_len;
-// } t_file;
-
-typedef struct s_texture
+typedef struct s_file
 {
-	void *no_img;
-	void *so_img;
-	void *we_img;
-	void *ea_img;
-	int f_arr[3];
-	int c_arr[3];
-	int f_color;
-	int c_color;
-} t_texture;
+	char **file_arr;
+	int filepath_len;
+	int stage;
+	int file_len;
+} t_file;
+
+typedef struct s_txtrs
+{
+	t_txtdata	*no;
+	t_txtdata	*so;
+	t_txtdata	*we;
+	t_txtdata	*ea;
+	int			f_arr[3];
+	int			c_arr[3];
+	int			f_color;
+	int			c_color;
+}				t_txtrs;
 
 
 typedef struct s_txtdata
@@ -95,15 +107,6 @@ typedef struct s_txtdata
 	int width;
 	int height;
 } t_txtdata;
-
-
-typedef struct s_txtrs
-{
-	t_txtdata *no;
-	t_txtdata *so;
-	t_txtdata *we;
-	t_txtdata *ea;
-} t_txtrs;
 
 typedef struct s_img
 {
@@ -148,14 +151,22 @@ typedef struct s_cub
 {
 	void *mlx_ptr;
 	void *win_ptr;
-	// t_file file;
-	t_texture texture;
+	t_file file;
+	t_txtrs texture;
 	t_map *map;
 	t_player *player;
 	t_img *img;
 	t_ray *ray;
 	t_txtrs *txtrs;
 } t_cub;
+
+typedef struct s_gnl
+{
+	char	*line;
+	bool	error;
+}	t_gnl;
+
+
 ;
 
 // ------------> RAYCASTING FUNCTIONS <------------
@@ -188,11 +199,11 @@ t_txtdata	*get_txt(t_cub *cub, int flag);
 double	texture_x(t_cub *cub, t_txtdata *texture, int flag);
 void	draw_floor_ceiling(t_cub *cub, int ray, int t_pix, int b_pix);
 int	unit_circle(float angle, char c);
-void	my_pixel_put(t_mlx_img *img, int x, int y, int color);
+void	my_pixel_put(t_img *img, int x, int y, int color);
 void	draw_wall(t_cub *cub, int t_pix, int b_pix, double wall_h);
 float	nor_angle(float angle);
 void	render_wall(t_cub *cub, int ray);
-
+int	key_release(t_mlx_key_data keydata, t_cub *game);
 
 
 // ------------> paresing FUNCTIONS <------------
@@ -201,5 +212,7 @@ void	get_map(char *read_map, t_cub *game);
 char	**get_map_from_file(char *read_map, t_cub *game);
 int	check_wall(t_cub *game);
 void	is_parsing(t_cub *game, char *file);
+void	parsing(t_cub *cub, char *input_file);
+
 
 #endif
