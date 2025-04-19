@@ -1,5 +1,5 @@
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 static void	init_malloc(t_cub *cub)
 {
@@ -7,18 +7,18 @@ static void	init_malloc(t_cub *cub)
 	cub->win_ptr = NULL;
 	cub->map = (t_map *)ft_calloc(1, sizeof(t_map));
 	cub->player = (t_player *)ft_calloc(1, sizeof(t_player));
-	cub->img = (t_mlx_img *)ft_calloc(1, sizeof(t_mlx_img));
+	cub->img = (t_img *)ft_calloc(1, sizeof(t_img));
 	cub->ray = (t_ray *)ft_calloc(1, sizeof(t_ray));
 	cub->txtrs = (t_txtrs *)ft_calloc(1, sizeof(t_txtrs));
 	if (!cub->map || !cub->player || !cub->img || !cub->ray || !cub->txtrs)
-		exit_failure(cub, MALLOC_ERR);
+		exit_failure(cub, "MALLOC_ERR");
 	cub->txtrs->no = (t_txtdata *)ft_calloc(1, sizeof(t_txtdata));
 	cub->txtrs->so = (t_txtdata *)ft_calloc(1, sizeof(t_txtdata));
 	cub->txtrs->we = (t_txtdata *)ft_calloc(1, sizeof(t_txtdata));
 	cub->txtrs->ea = (t_txtdata *)ft_calloc(1, sizeof(t_txtdata));
 	if (!cub->txtrs->no || !cub->txtrs->so
 		|| !cub->txtrs->we || !cub->txtrs->ea)
-		exit_failure(cub, MALLOC_ERR);
+		exit_failure(cub, "MALLOC_ERR");
 	cub->txtrs->f_color = -1;
 	cub->txtrs->c_color = -1;
 }

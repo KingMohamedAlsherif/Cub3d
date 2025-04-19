@@ -1,5 +1,5 @@
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 static void	exit_mlx(t_cub *cub)
 {

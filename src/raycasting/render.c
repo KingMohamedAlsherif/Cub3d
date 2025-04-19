@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
-void	my_pixel_put(t_mlx_img *img, int x, int y, int color)
+void	my_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 

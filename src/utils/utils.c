@@ -1,5 +1,5 @@
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	use_atoi(t_cub *cub, char *str_nbr, int *counter)
 {
@@ -7,13 +7,13 @@ void	use_atoi(t_cub *cub, char *str_nbr, int *counter)
 	int		nbr;
 
 	if (!str_nbr || !*str_nbr)
-		return (exit_failure(cub, COLOR_ERR));
+		return (exit_failure(cub, "COLOR_ERR"));
 	res = ft_atoi(str_nbr);
 	if (res.error)
-		return (exit_failure(cub, COLOR_ERR));
+		return (exit_failure(cub, "COLOR_ERR"));
 	nbr = (int)res.nbr;
 	if (nbr < 0 || nbr > 255)
-		return (exit_failure(cub, COLOR_ERR));
+		return (exit_failure(cub, "COLOR_ERR"));
 	*counter = nbr;
 }
 
@@ -43,4 +43,33 @@ int	create_rgb(int *color_arr)
 	b = color_arr[2];
 	a = 0x00000000;
 	return (r << 16 | g << 8 | b | a);
+}
+
+t_atoi	ft_atoi(const char *str)
+{
+	t_atoi	res;
+	int		sign;
+
+	res.nbr = 0;
+	res.error = false;
+	sign = 1;
+	while (*str == ' ' || (*str >= 9 && *str <= 13))
+		str++;
+	if (*str == '-' || *str == '+')
+	{
+		if (*str == '-')
+			sign = -1;
+		str++;
+	}
+	while (*str >= '0' && *str <= '9')
+	{
+		res.nbr = ft_toint(res.nbr, *str);
+		if (res.nbr > INT_MAX && sign > 0)
+			return (res.error = true, res.nbr = 0, res);
+		if (res.nbr * sign < INT_MIN && sign < 0)
+			return (res.error = true, res.nbr = 0, res);
+		str++;
+	}
+	res.nbr *= sign;
+	return (res);
 }

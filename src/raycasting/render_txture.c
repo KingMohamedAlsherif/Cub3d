@@ -10,65 +10,65 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
-t_txtdata	*get_txt(t_cub *cub, int flag)
+t_txtdata	*fetch_texture(t_cub *game, int is_hori)
 {
-	cub->ray->ray_angle = nor_angle(cub->ray->ray_angle);
-	if (flag == 0)
+	game->ray->ray_angle = nor_angle(game->ray->ray_angle);
+	if (is_hori == 0)
 	{
-		if (cub->ray->ray_angle > M_PI / 2 && cub->ray->ray_angle < 3 * (M_PI
+		if (game->ray->ray_angle > M_PI / 2 && game->ray->ray_angle < 3 * (M_PI
 				/ 2))
-			return (cub->txtrs->we);
+			return (game->txtrs->we);
 		else
-			return (cub->txtrs->ea);
+			return (game->txtrs->ea);
 	}
 	else
 	{
-		if (cub->ray->ray_angle > 0 && cub->ray->ray_angle < M_PI)
-			return (cub->txtrs->so);
+		if (game->ray->ray_angle > 0 && game->ray->ray_angle < M_PI)
+			return (game->txtrs->so);
 		else
-			return (cub->txtrs->no);
+			return (game->txtrs->no);
 	}
 }
 
-double	texture_x(t_cub *cub, t_txtdata *texture, int flag)
+double	get_texture_coord(t_cub *game, t_txtdata *txt, int is_hori)
 {
-	double	x_o;
+	double	tex_coord;
 
-	(void)texture;
-	if (flag == 1)
-		x_o = ((float)((int)cub->ray->hor_x % TILE_SIZE) / TILE_SIZE)
-			* texture->width;
+	(void)txt;
+	if (is_hori == 1)
+		tex_coord = ((float)((int)game->ray->hor_x % TILE_SIZE) / TILE_SIZE)
+			* txt->width;
 	else
-		x_o = ((float)((int)cub->ray->ver_y % TILE_SIZE) / TILE_SIZE)
-			* texture->width;
-	return (x_o);
+		tex_coord = ((float)((int)game->ray->ver_y % TILE_SIZE) / TILE_SIZE)
+			* txt->width;
+	return (tex_coord);
 }
 
-void	draw_floor_ceiling(t_cub *cub, int ray, int t_pix, int b_pix)
+void	paint_floor_ceiling(t_cub *game, int col, int top_px, int bot_px)
 {
-	int	i;
-	int	color;
+	int	idx;
+	int	shade;
 
-	i = b_pix;
-	color = cub->texture.f_color;
-	while (i < S_HEIGHT)
-		my_mlx_pixel_put(cub, ray, i++, color);
-	i = 0;
-	color = cub->texture.c_color;
-	while (i < t_pix)
-		my_mlx_pixel_put(cub, ray, i++, color);
+	idx = bot_px;
+	shade = game->txtrs->f_color;
+	while (idx < S_HEIGHT)
+		my_mlx_pixel_put(game, col, idx++, shade);
+	idx = 0;
+	shade = game->txtrs->c_color;
+	while (idx < top_px)
+		my_mlx_pixel_put(game, col, idx++, shade);
 }
 
-int	unit_circle(float angle, char c)
+int	check_circle(float angle, char axis)
 {
-	if (c == 'x')
+	if (axis == 'x')
 	{
 		if (angle > 0 && angle < M_PI)
 			return (1);
 	}
-	else if (c == 'y')
+	else if (axis == 'y')
 	{
 		if (angle > (M_PI / 2) && angle < (3 * M_PI) / 2)
 			return (1);

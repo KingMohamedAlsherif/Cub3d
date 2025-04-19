@@ -55,15 +55,15 @@ void	turn_player(t_cub *game, int direction)
 {
 	if (direction == 1)
 	{
-		game->player->view_angle += ROTATE_SPEED;
-		if (game->player->view_angle > 2 * M_PI)
-			game->player->view_angle -= 2 * M_PI;
+		game->player->plyr_angle += ROTATE_SPEED;
+		if (game->player->plyr_angle > 2 * M_PI)
+			game->player->plyr_angle -= 2 * M_PI;
 	}
 	else
 	{
-		game->player->view_angle -= ROTATE_SPEED;
-		if (game->player->view_angle < 0)
-			game->player->view_angle += 2 * M_PI;
+		game->player->plyr_angle -= ROTATE_SPEED;
+		if (game->player->plyr_angle < 0)
+			game->player->plyr_angle += 2 * M_PI;
 	}
 }
 
@@ -93,12 +93,12 @@ void	shift_player(t_cub *game, double delta_x, double delta_y)
 	int	next_x;
 	int	next_y;
 
-	next_x = roundf(game->player->pos_x + delta_x);
-	next_y = roundf(game->player->pos_y + delta_y);
+	next_x = roundf(game->player->plyr_x + delta_x);
+	next_y = roundf(game->player->plyr_y + delta_y);
 	if (!detect_collision(game->map, next_x, next_y))
 	{
-		game->player->pos_x = next_x;
-		game->player->pos_y = next_y;
+		game->player->plyr_x = next_x;
+		game->player->plyr_y = next_y;
 	}
 	else
 		exit_failure(game, "Error: Collision detected, player movement blocked.\n");

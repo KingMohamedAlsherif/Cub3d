@@ -22,9 +22,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include "includes/cons.h"
-# include "includes/keys.h"
-# include "includes/cons.h"
 #include <math.h>
 #include <stdbool.h>
 
@@ -65,8 +62,8 @@ typedef struct s_map
 	int map_end;
 	int wall_counter;
 	int plyr_counter;
-	int p_x; // player x position in the map for testing needs delete it later
-	int p_y; // player y position in the map for testing needs delete it later
+	int p_x; 
+	int p_y; 
 	char plyr_direction;
 } t_map;
 
@@ -166,18 +163,28 @@ typedef struct s_gnl
 	bool	error;
 }	t_gnl;
 
+typedef struct s_atoi
+{
+	long	nbr;
+	bool	error;
+}	t_atoi;
 
-;
+
+// ------------> UTILS FUNCTIONS <------------
+t_atoi	ft_atoi(const char *str);
+int	create_rgb(int *color_arr);
+void	calculate_angle(t_cub *cub, char direction, int x, int y);
+void	ft_free(void **ptr, char type);
+void	use_atoi(t_cub *cub, char *str_nbr, int *counter);
+static void	init_malloc(t_cub *cub);
+static void	init_structs(t_cub *cub, t_file *file, char *input_file);
+static void	init_txtr(t_txtdata *txtr);
+void	init(t_cub *cub, char *input_file);
+void	exit_failure(t_cub *cub, char *err_msg);
+int	exit_success(t_cub *cub);
 
 // ------------> RAYCASTING FUNCTIONS <------------
 void  render_color_buffer(t_cub *cub);
-// void  init_player_pos(t_player *player);
-// void  set_player(t_player *player, t_cub  *cub);
-// void  init_map(t_map *map, int width, int height);
-// void  set_minimap_scalefactor(t_cub *cub);
-// bool  maphaswallat(double x, double y, t_player *player);
-// int   get_map_at(int  i, int  j, t_player *player);
-// bool  is_inside_map(double x, double y, t_player *player);
 void  render_map(t_cub *cub);
 int   return_color(t_cub  *cub, int   tilecolor);
 void	start_the_game(t_cub *cub);
