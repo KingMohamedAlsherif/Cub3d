@@ -12,7 +12,7 @@
 
 #include "../cub3d.h"
 
-int	key_release(t_mlx_key_data keydata, t_cub *game)
+int	key_release(t_mlx_key_data keydata, t_game *game)
 {
 	if (keydata.key == MLX_KEY_D)
 		game->player->r_l = 0;
@@ -31,7 +31,7 @@ int	key_release(t_mlx_key_data keydata, t_cub *game)
 
 int	handle_key(t_mlx_key_data keydata, void *context)
 {
-	t_cub	*game;
+	t_game	*game;
 
 	game = context;
 	if (keydata.key == MLX_KEY_ESCAPE)
@@ -51,7 +51,7 @@ int	handle_key(t_mlx_key_data keydata, void *context)
 	return (0);
 }
 
-void	turn_player(t_cub *game, int direction)
+void	turn_player(t_game *game, int direction)
 {
 	if (direction == 1)
 	{
@@ -88,7 +88,7 @@ int	detect_collision(t_map *map_data, float pos_x, float pos_y)
 		|| map_data->map_arr[grid_y2][grid_x2] == '1');
 }
 
-void	shift_player(t_cub *game, double delta_x, double delta_y)
+void	shift_player(t_game *game, double delta_x, double delta_y)
 {
 	int	next_x;
 	int	next_y;

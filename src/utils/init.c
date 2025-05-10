@@ -1,7 +1,7 @@
 
 #include "../cub3d.h"
 
-static void	init_malloc(t_cub *cub)
+static void	init_malloc(t_game *cub)
 {
 	cub->mlx_ptr = NULL;
 	cub->win_ptr = NULL;
@@ -23,7 +23,7 @@ static void	init_malloc(t_cub *cub)
 	cub->txtrs->c_color = -1;
 }
 
-static void	init_structs(t_cub *cub, t_file *file, char *input_file)
+static void	init_structs(t_game *cub, t_file *file, char *input_file)
 {
 	t_map		*map;
 	t_player	*player;
@@ -62,7 +62,7 @@ static void	init_txtr(t_txtdata *txtr)
 	txtr->height = 0;
 }
 
-void	init(t_cub *cub, char *input_file)
+void	init(t_game *cub, char *input_file)
 {
 	init_malloc(cub);
 	init_structs(cub, &cub->file, input_file);
@@ -73,7 +73,7 @@ void	init(t_cub *cub, char *input_file)
 }
 
 /*
-	*	void	init(t_cub *cub, char *input_file)
+	*	void	init(t_game *cub, char *input_file)
 	{
 		-	cub->mlx = NULL;
 			used to store the mlx pointer into that variable, we init it to NULL.

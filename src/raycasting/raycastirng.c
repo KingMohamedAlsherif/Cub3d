@@ -35,7 +35,7 @@ int	check_intersection(float angle, float *point, float *increment, int is_horiz
 	return (1);
 }
 
-int	obstacle_hit(float x, float y, t_cub *game)
+int	obstacle_hit(float x, float y, t_game *game)
 {
 	int	grid_x;
 	int	grid_y;
@@ -52,7 +52,7 @@ int	obstacle_hit(float x, float y, t_cub *game)
 	return (1);
 }
 
-float	calc_h_intersection(t_cub *game, float angle)
+float	calc_h_intersection(t_game *game, float angle)
 {
 	float	hor_x;
 	float	hor_y;
@@ -79,7 +79,7 @@ float	calc_h_intersection(t_cub *game, float angle)
 				- game->player->plyr_y, 2)));
 }
 
-float	calc_v_intersection(t_cub *game, float angle)
+float	calc_v_intersection(t_game *game, float angle)
 {
 	float	vert_x;
 	float	vert_y;
@@ -106,7 +106,7 @@ float	calc_v_intersection(t_cub *game, float angle)
 				- game->player->plyr_y, 2)));
 }
 
-void	project_rays(t_cub *game)
+void	project_rays(t_game *game)
 {
 	double	hor_dist;
 	double	vert_dist;

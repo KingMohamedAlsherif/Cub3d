@@ -10,67 +10,67 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "cub3d.h"
 
-void	free_textures(t_cub *cub)
+void free_textures(t_cub *cub)
 {
-    if (cub->texture.no)
+    if (cub->textures.north)
     {
-        free(cub->texture.no);
-        cub->texture.no = NULL;
+        free(cub->textures.north);
+        cub->textures.north = NULL;
     }
-    if (cub->texture.so)
+    if (cub->textures.south)
     {
-        free(cub->texture.so);
-        cub->texture.so = NULL;
+        free(cub->textures.south);
+        cub->textures.south = NULL;
     }
-    if (cub->texture.we)
+    if (cub->textures.west)
     {
-        free(cub->texture.we);
-        cub->texture.we = NULL;
+        free(cub->textures.west);
+        cub->textures.west = NULL;
     }
-    if (cub->texture.ea)
+    if (cub->textures.east)
     {
-        free(cub->texture.ea);
-        cub->texture.ea = NULL;
+        free(cub->textures.east);
+        cub->textures.east = NULL;
     }
-    if (cub->texture.f_arr)
+    if (cub->c_rgb)
     {
-        free(cub->texture.f_arr);
-        cub->texture.f_arr = NULL;
+        free(cub->c_rgb);
+        cub->c_rgb = NULL;
     }
-    if (cub->texture.c_arr)
+    if (cub->f_rgb)
     {
-        free(cub->texture.c_arr);
-        cub->texture.c_arr = NULL;
+        free(cub->f_rgb);
+        cub->f_rgb = NULL;
     }
 }
 
 int	is_texture_or_color(char *line)
 {
-    if (!line)
-        return (0);
-    return ((line[0] == 'N' && line[1] == 'O' && line[2] == ' ') ||
-        (line[0] == 'S' && line[1] == 'O' && line[2] == ' ') ||
-        (line[0] == 'W' && line[1] == 'E' && line[2] == ' ') ||
-        (line[0] == 'E' && line[1] == 'A' && line[2] == ' ') ||
-        (line[0] == 'F' && line[1] == ' ') ||
-        (line[0] == 'C' && line[1] == ' '));
+	if (!line)
+		return (0);
+	return ((line[0] == 'N' && line[1] == 'O' && line[2] == ' ') ||
+		(line[0] == 'S' && line[1] == 'O' && line[2] == ' ') ||
+		(line[0] == 'W' && line[1] == 'E' && line[2] == ' ') ||
+		(line[0] == 'E' && line[1] == 'A' && line[2] == ' ') ||
+		(line[0] == 'F' && line[1] == ' ') ||
+		(line[0] == 'C' && line[1] == ' '));
 }
 
-void	exit_error(t_cub *cub, char *msg)
+void exit_error(t_cub *cub, char *msg)
 {
     free_textures(cub);
-    if (cub->file.filepath_len >= 0)
-        close(cub->file.filepath_len);
+    if (cub->fd >= 0)
+        close(cub->fd);
     printf("Error\n%s\n", msg);
     exit(1);
 }
 
-static void	assign_texture(t_cub *cub, char *line, char **texture, int *pos_flag)
+static void assign_texture(t_cub *cub, char *line, char **texture, int *    pos_flag)
 {
-    int		i;
-    char	*path;
+    int i;
+    char *path;
 
     i = 2; // Skip identifier (e.g., "NO")
     while (line[i] == ' ')
@@ -88,24 +88,29 @@ static void	assign_texture(t_cub *cub, char *line, char **texture, int *pos_flag
     free(line); // Free the input line
 }
 
-t_cub	*textures_parsing(t_cub *cub, char *line)
+t_cub *textures_parsing(t_cub *cub, char *line)
 {
     if (line[0] == 'N' && line[1] == 'O' && line[2] == ' ')
-        assign_texture(cub, line, &cub->texture.no, &cub->file.stage);
+        assign_texture(cub, line, &cub->textures.north, &cub->no_pos);
     else if (line[0] == 'S' && line[1] == 'O' && line[2] == ' ')
-        assign_texture(cub, line, &cub->texture.so, &cub->file.stage);
+        assign_texture(cub, line, &cub->textures.south, &cub->so_pos);
     else if (line[0] == 'W' && line[1] == 'E' && line[2] == ' ')
-        assign_texture(cub, line, &cub->texture.we, &cub->file.stage);
+        assign_texture(cub, line, &cub->textures.west, &cub->we_pos);
     else if (line[0] == 'E' && line[1] == 'A' && line[2] == ' ')
-        assign_texture(cub, line, &cub->texture.ea, &cub->file.stage);
+        assign_texture(cub, line, &cub->textures.east, &cub->ea_pos);
     else if (line[0] == 'F' && line[1] == ' ')
-        assign_color(cub, line, &cub->texture.f_arr, &cub->file.stage, &cub->texture.f_color);
+        assign_color(cub, line, &cub->f_rgb, &cub->floor_pos, &cub->floor);
     else if (line[0] == 'C' && line[1] == ' ')
-        assign_color(cub, line, &cub->texture.c_arr, &cub->file.stage, &cub->texture.c_color);
+        assign_color(cub, line, &cub->c_rgb, &cub->ceiling_pos, &cub->ceiling);
     else
     {
         free(line);
         exit_error(cub, "Invalid texture or color definition");
     }
-    return (cub);
+    return cub;
 }
+
+// validate the texture path 
+// check if the path is valid 
+// check if the path is a valid file 
+// store the path in the dd

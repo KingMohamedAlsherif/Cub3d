@@ -1,7 +1,7 @@
 
 #include "cub3d.h"
 
-void	use_atoi(t_cub *cub, char *str_nbr, int *counter)
+void	use_atoi(t_game *cub, char *str_nbr, int *counter)
 {
 	t_atoi	res;
 	int		nbr;
@@ -17,7 +17,7 @@ void	use_atoi(t_cub *cub, char *str_nbr, int *counter)
 	*counter = nbr;
 }
 
-void	calculate_angle(t_cub *cub, char direction, int x, int y)
+void	calculate_angle(t_game *cub, char direction, int x, int y)
 {
 	if (direction == 'N')
 		cub->player->plyr_angle = 3 * M_PI / 2;

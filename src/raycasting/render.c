@@ -20,7 +20,7 @@ void	my_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	draw_wall(t_cub *cub, int t_pix, int b_pix, double wall_h)
+void	draw_wall(t_game *cub, int t_pix, int b_pix, double wall_h)
 {
 	int			color;
 	t_txtdata	*txt;
@@ -52,7 +52,7 @@ float	nor_angle(float angle)
 	return (angle);
 }
 
-void	render_wall(t_cub *cub, int ray)
+void	render_wall(t_game *cub, int ray)
 {
 	double	wall_h;
 	double	b_pix;

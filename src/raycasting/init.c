@@ -31,7 +31,7 @@ t_map *init_argument()
 
 
 
-void    init_player_data(t_cub  cub)
+void    init_player_data(t_game  cub)
 {
     char c;
 

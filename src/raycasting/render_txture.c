@@ -12,7 +12,7 @@
 
 #include "../cub3d.h"
 
-t_txtdata	*fetch_texture(t_cub *game, int is_hori)
+t_txtdata	*fetch_texture(t_game *game, int is_hori)
 {
 	game->ray->ray_angle = nor_angle(game->ray->ray_angle);
 	if (is_hori == 0)
@@ -32,7 +32,7 @@ t_txtdata	*fetch_texture(t_cub *game, int is_hori)
 	}
 }
 
-double	get_texture_coord(t_cub *game, t_txtdata *txt, int is_hori)
+double	get_texture_coord(t_game *game, t_txtdata *txt, int is_hori)
 {
 	double	tex_coord;
 
@@ -46,7 +46,7 @@ double	get_texture_coord(t_cub *game, t_txtdata *txt, int is_hori)
 	return (tex_coord);
 }
 
-void	paint_floor_ceiling(t_cub *game, int col, int top_px, int bot_px)
+void	paint_floor_ceiling(t_game *game, int col, int top_px, int bot_px)
 {
 	int	idx;
 	int	shade;

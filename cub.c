@@ -14,7 +14,7 @@
 
 int	main(int ac, char **av)
 {
-	t_cub	cub;
+	t_game	cub;
 
 	if (ac != 2)
 	{
@@ -26,6 +26,6 @@ int	main(int ac, char **av)
 	if (!cub.mlx_ptr)
 		exit_failure(&cub, "Error\nFailed to initialize mlx");
 	// parsing(&cub, av[1]);
-	start_the_game(&cub);
+	lunch_game(&cub);
 	return (0);
 }
