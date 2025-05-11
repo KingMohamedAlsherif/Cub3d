@@ -1,10 +1,9 @@
-#include "cub3d.h"
+#include "../cub3d.h"
 // Create a function that convert some variables in parsing header to variables in the cub3d header
 
 void    convert_parsing_to_cub3d(t_game *cub, t_cub *parsing)
 {
     cub->map->map_arr = parsing->map;
-    cub->player = parsing->player;
     // cub->txtrs = parsing->txtrs;
     // cub->texture = parsing->texture;
     cub->mlx_ptr = parsing->mlx;
@@ -18,19 +17,17 @@ void    convert_parsing_to_cub3d(t_game *cub, t_cub *parsing)
 }
 
 
-static void	validate_img(t_cub *cub, char *img_path)
+static void	validate_img(t_game *cub, char *img_path, t_txtdata *txtr)
 {
-    t_txtdata	*txtr;
-    int			width;
-    int			height;
+    int	width;
+    int	height;
 
-    txtr = &cub->textures;
     if (txtr->img)
         return;
 
-    if (!ft_strrchr(img_path, '.xpm'))
-        return;
-    txtr->img = mlx_xpm_file_to_image(cub->mlx, img_path, &width, &height);
+    // if (!ft_strrchr(img_path, '.xpm'))
+    //     return;
+    txtr->img = mlx_xpm_file_to_image(cub->mlx_ptr, img_path, &width, &height);
     if (!txtr->img)
         return;
     txtr->height = height;
@@ -43,13 +40,13 @@ void    convert_textures(t_game *cub, t_cub *parsing)
 {
     t_txtrs     *txtrs;
 
-    txtrs = &cub->txtrs;
+    txtrs = cub->txtrs;
     if (parsing->textures.north)
-        validate_img(txtrs->no, parsing->textures.north);
+        validate_img(cub, parsing->textures.north, txtrs->no);
     if (parsing->textures.south)
-        validate_img(txtrs->so, parsing->textures.south);
+        validate_img(cub, parsing->textures.south, txtrs->so);
     if (parsing->textures.west)
-        validate_img(txtrs->we, parsing->textures.west);
+        validate_img(cub, parsing->textures.west, txtrs->we);
     if (parsing->textures.east)
-        validate_img(txtrs->ea, parsing->textures.east);
+        validate_img(cub, parsing->textures.east, txtrs->ea);
 }

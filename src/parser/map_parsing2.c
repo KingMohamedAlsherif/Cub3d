@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
-
+// rebuild this function to check the player is valid 
 int check_void(int i, int j, char invalid, t_cub *game)
 {
     if (game->map[0][j] == '0' || game->map[0][j] == game->player)

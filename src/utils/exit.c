@@ -42,7 +42,7 @@ void	exit_failure(t_game *cub, char *err_msg)
 {
 	exit_clean(cub);
 	if (*err_msg)
-		ft_printf(2, "%s\n", err_msg);
+		ft_printf("%s\n", err_msg);
 	exit(EXIT_FAILURE);
 }
 

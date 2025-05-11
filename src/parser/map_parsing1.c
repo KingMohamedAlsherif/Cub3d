@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 int	map_name(char *map)
 {
@@ -46,25 +46,25 @@ void parse_cub_file(t_cub *cub, char *filename)
 }
 
 
- void	assign_map(t_cub *game, char **map_lines, int count)
-{
-	int	i;
+//  void	assign_map(t_cub *game, char **map_lines, int count)
+// {
+// 	int	i;
 
-	game->map = malloc(sizeof(char *) * (count + 1));
-	if (!game->map)
-		exit_error(game, "Memory allocation failed for map");
-	i = -1;
-	while (++i < count)
-	{
-		game->map[i] = ft_strdup(map_lines[i]);
-		if ((int)ft_strlen(map_lines[i]) > game->cols)
-			game->cols = ft_strlen(map_lines[i]);
-		free(map_lines[i]);
-	}
-	game->map[count] = NULL;
-	game->rows = count;
-	free(map_lines);
-}
+// 	game->map = malloc(sizeof(char *) * (count + 1));
+// 	if (!game->map)
+// 		exit_error(game, "Memory allocation failed for map");
+// 	i = -1;
+// 	while (++i < count)
+// 	{
+// 		game->map[i] = ft_strdup(map_lines[i]);
+// 		if ((int)ft_strlen(map_lines[i]) > game->cols)
+// 			game->cols = ft_strlen(map_lines[i]);
+// 		free(map_lines[i]);
+// 	}
+// 	game->map[count] = NULL;
+// 	game->rows = count;
+// 	free(map_lines);
+// }
 
 void process_map_line(t_cub *game, char ***map_lines, int *line_count, char *line)
 {

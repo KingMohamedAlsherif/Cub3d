@@ -1,7 +1,7 @@
 
 #include "../cub3d.h"
 
-static void	init_malloc(t_game *cub)
+void	init_malloc(t_game *cub)
 {
 	cub->mlx_ptr = NULL;
 	cub->win_ptr = NULL;
@@ -23,7 +23,7 @@ static void	init_malloc(t_game *cub)
 	cub->txtrs->c_color = -1;
 }
 
-static void	init_structs(t_game *cub, t_file *file, char *input_file)
+void	init_structs(t_game *cub, t_file *file, char *input_file)
 {
 	t_map		*map;
 	t_player	*player;
@@ -51,7 +51,7 @@ static void	init_structs(t_game *cub, t_file *file, char *input_file)
 	player->rot_flag = 0;
 }
 
-static void	init_txtr(t_txtdata *txtr)
+void	init_txtr(t_txtdata *txtr)
 {
 	txtr->img = NULL;
 	txtr->addr = NULL;

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
  int	is_valid_rgb_value(char *str)
 {
@@ -47,7 +47,7 @@ void	assign_rgb_values(t_color *color, char **rgb, int is_floor)
 		color->ceiling_red = r;
 		color->ceiling_green = g;
 		color->ceiling_blue = b;
-		color->cel_color = (r << 16) | (g << 8) | b;
+		color->ceiling_color = (r << 16) | (g << 8) | b;
 	}
 }
 

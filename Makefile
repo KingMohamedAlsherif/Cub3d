@@ -15,7 +15,7 @@ NAME		=	cub3D
 SRCS		=	src/parser/map_parsing1.c \
                 src/parser/map_parsing2.c \
                 src/parser/color_parsing.c \
-				src/parser/texture_parsing.c \
+				src/parser/textures_parsing.c \
 				src/parser/after_parsing.c \
                 src/raycasting/raycasting.c \
                 src/raycasting/move.c \
@@ -34,15 +34,15 @@ OBJS 		=	$(SRCS:.c=.o)
 
 CC 			=	cc
 
-CFLAGS		=	-Iminilibx_opengl -IGNL -Iprintf
+CFLAGS		=	-Imlx -IGNL -Iprintf
 
 LIBFT		=	libft/libft.a
 
 PRINTF		=	printf/libftprintf.a
 
-MLX 		=	minilibx_opengl/libmlx.a
+MLX 		=	mlx/libmlx.a
 
-MLX_FLAGS	=	-Lminilibx_opengl -lmlx -framework OpenGL -framework AppKit
+MLX_FLAGS	=	-Lmlx -lmlx -framework OpenGL -framework AppKit
 
 all : $(NAME)
 
@@ -50,7 +50,7 @@ $(LIBFT):
 	$(MAKE) -C libft
 
 $(MLX):
-	$(MAKE) -C minilibx_opengl
+	$(MAKE) -C mlx
 
 $(PRINTF):
 	$(MAKE) -C printf

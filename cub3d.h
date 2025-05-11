@@ -13,8 +13,8 @@
 /* ************************************************************************** */
 
 
-#ifndef CUB_3D_H
-# define CUB_3D_H
+#ifndef CUB3D_H
+# define CUB3D_H
 
 # include <fcntl.h>
 # include "libft/libft.h"
@@ -27,7 +27,6 @@
 #include <stdbool.h>
 #include <math.h>
 #include <stdbool.h>
-#include "parsing.h"
 
 # define M_PI 3.14159265358979323846
 # define ON_DESTROY 17
@@ -68,33 +67,6 @@ typedef struct s_textures
     void *west_img;
     void *east_img;
 } t_textures;
-
-typedef struct s_cub
-{
-	void				*mlx;
-	void				*win;
-	char				**rgb;
-	char				**map;
-	unsigned long		floor;
-	unsigned long		ceiling;
-	int   width;
-    int     height;
-	int					*color_buffer;
-	int					*tex;
-	bool				color_flag;
-	int					fd;
-	int					no_pos;
-	int					so_pos;
-	int					we_pos;
-	int					ea_pos;
-	t_textures          textures;
-	char		player_dir;
-	double player_x;
-    double player_y;
-	void	*window;
-	t_color 			colors;
-}				t_cub;
-
 
 typedef struct s_map
 {
@@ -186,13 +158,13 @@ typedef struct s_ray
 	int wall_flag;
 } t_ray;
 
-typedef struct s_textures
-{
-	char    *north;
-	char    *south;
-	char    *west;
-	char    *east;
-} t_textures;
+// typedef struct s_textures
+// {
+// 	char    *north;
+// 	char    *south;
+// 	char    *west;
+// 	char    *east;
+// } t_textures;
 
 typedef struct color
 {
@@ -202,6 +174,8 @@ typedef struct color
 	int ceiling_red;
 	int ceiling_green;
 	int ceiling_blue;
+	int floor_color;
+	int ceiling_color;
 } t_color;
 typedef struct s_game
 {
@@ -215,6 +189,40 @@ typedef struct s_game
 	t_ray *ray;
 	t_txtrs *txtrs;
 } t_game;
+
+typedef struct s_cub
+{
+	void				*mlx;
+	void				*win;
+	char				**rgb;
+	char				**map;
+	unsigned long		floor;
+	unsigned long		ceiling;
+	int   width;
+    int     height;
+	int					*color_buffer;
+	int					*tex;
+	bool				color_flag;
+	int					fd;
+	int					no_pos;
+	int					so_pos;
+	int					we_pos;
+	int					ea_pos;
+	t_textures          textures;
+	char		player_dir;
+	double player_x;
+    double player_y;
+	void	*window;
+	char	player;
+	int		rows;
+	int		cols;
+	int					p_flag;
+	int					floor_pos;
+	int					ceiling_pos;
+	char				*c_rgb;
+	char				*f_rgb;
+}				t_cub;
+
 
 // typedef struct s_gnl
 // {
@@ -233,7 +241,7 @@ typedef struct s_game
 // t_atoi	ft_atoi(const char *str);
 int	create_rgb(int *color_arr);
 void	calculate_angle(t_game *cub, char direction, int x, int y);
-void	ft_free(void **ptr, char type);
+void	ft_free(void *address, char target);
 void	use_atoi(t_game *cub, char *str_nbr, int *counter);
 static void	init_malloc(t_game *cub);
 static void	init_structs(t_game *cub, t_file *file, char *input_file);
@@ -245,7 +253,11 @@ int	exit_success(t_game *cub);
 
 // ------------> RAYCASTING FUNCTIONS <------------
 void  render_color_buffer(t_game *cub);
+void	project_rays(t_game *game);
+int	render_loop(void *param);
 void  render_map(t_game *cub);
+void	turn_player(t_game *game, int direction);
+void	update_player(t_game *game, double delta_x, double delta_y);
 int   return_color(t_game  *cub, int   tilecolor);
 void	start_the_game(t_game *cub);
 int game_loop(void  *param);
@@ -260,6 +272,7 @@ void	move_player(t_game *cub, double move_x, double move_y);
 int	inter_check(float angle, float *inter, float *step, int is_horizon);
 int	wall_hit(float x, float y, t_game *cub);
 float	get_h_inter(t_game *mlx, float angl);
+void	shift_player(t_game *game, double delta_x, double delta_y);
 float	get_v_inter(t_game *mlx, float angl);
 void	cast_rays(t_game *mlx);
 t_txtdata	*get_txt(t_game *cub, int flag);
@@ -293,4 +306,10 @@ void	assign_map(t_cub *game, char **map_lines, int count);
 int check_void(int i, int j, char invalid, t_cub *game);
 void process_map_line(t_cub *game, char ***map_lines, int *line_count, char *line);
 void free_map_lines(char **map_lines, int line_count);
+void	init_structs(t_game *cub, t_file *file, char *input_file);
+void	init_malloc(t_game *cub);
+void	init_txtr(t_txtdata *txtr);
+void	init(t_game *cub, char *input_file);
+int	create_rgb(int *color_arr);
+void	calculate_angle(t_game *cub, char direction, int x, int y);
 #endif
