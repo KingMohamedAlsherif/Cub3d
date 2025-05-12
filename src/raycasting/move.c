@@ -29,7 +29,7 @@ int	key_release(t_mlx_key_data keydata, t_game *game)
 	return (0);
 }
 
-int	handle_key(t_mlx_key_data keydata, void *context)
+int	mlx_key(t_mlx_key_data keydata, void *context)
 {
 	t_game	*game;
 

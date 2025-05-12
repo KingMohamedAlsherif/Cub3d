@@ -20,12 +20,12 @@ SRCS		=	src/parser/map_parsing1.c \
                 src/raycasting/raycasting.c \
                 src/raycasting/move.c \
                 src/raycasting/exec.c \
-				src/raycasting/init.c \
 				src/raycasting/render.c \
 				src/raycasting/render_txture.c \
                 src/utils/exit.c \
                 src/utils/init.c \
                 src/utils/utils.c \
+				src/utils/freeing.c \
                 cub.c \
                 GNL/get_next_line_bonus.c \
                 GNL/get_next_line_utils_bonus.c
@@ -34,15 +34,15 @@ OBJS 		=	$(SRCS:.c=.o)
 
 CC 			=	cc
 
-CFLAGS		=	-Imlx -IGNL -Iprintf
+CFLAGS		=	-g3 -fsanitize=address -Iminilibx-linux -IGNL -Iprintf
 
 LIBFT		=	libft/libft.a
 
 PRINTF		=	printf/libftprintf.a
 
-MLX 		=	mlx/libmlx.a
+MLX 		=	minilibx-linux/libmlx.a
 
-MLX_FLAGS	=	-Lmlx -lmlx -framework OpenGL -framework AppKit
+MLX_FLAGS	=	-Lminilibx-linux -lmlx -lGL -lX11 -lXext -lm -lbsd
 
 all : $(NAME)
 
@@ -50,7 +50,7 @@ $(LIBFT):
 	$(MAKE) -C libft
 
 $(MLX):
-	$(MAKE) -C mlx
+	$(MAKE) -C minilibx-linux
 
 $(PRINTF):
 	$(MAKE) -C printf

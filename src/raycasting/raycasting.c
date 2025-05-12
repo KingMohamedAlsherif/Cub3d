@@ -35,7 +35,7 @@ int	check_intersection(float angle, float *point, float *increment, int is_horiz
 	return (1);
 }
 
-int	obstacle_hit(float x, float y, t_game *game)
+int	wall_hit(float x, float y, t_game *game)
 {
 	int	grid_x;
 	int	grid_y;
@@ -68,7 +68,7 @@ float	calc_h_intersection(t_game *game, float angle)
 	if ((unit_circle(angle, 'y') && delta_x > 0) || (!unit_circle(angle, 'y')
 			&& delta_x < 0))
 		delta_x *= -1;
-	while (obstacle_hit(hor_x, hor_y - offset, game))
+	while (wall_hit(hor_x, hor_y - offset, game))
 	{
 		hor_x += delta_x;
 		hor_y += delta_y;
@@ -95,7 +95,7 @@ float	calc_v_intersection(t_game *game, float angle)
 	if ((unit_circle(angle, 'x') && delta_y < 0) || (!unit_circle(angle, 'x')
 			&& delta_y > 0))
 		delta_y *= -1;
-	while (obstacle_hit(vert_x - offset, vert_y, game))
+	while (wall_hit(vert_x - offset, vert_y, game))
 	{
 		vert_x += delta_x;
 		vert_y += delta_y;

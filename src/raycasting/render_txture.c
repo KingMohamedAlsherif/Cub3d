@@ -46,7 +46,7 @@ double	get_texture_coord(t_game *game, t_txtdata *txt, int is_hori)
 	return (tex_coord);
 }
 
-void	paint_floor_ceiling(t_game *game, int col, int top_px, int bot_px)
+void	draw_floor_ceiling(t_game *game, int col, int top_px, int bot_px)
 {
 	int	idx;
 	int	shade;
@@ -61,7 +61,7 @@ void	paint_floor_ceiling(t_game *game, int col, int top_px, int bot_px)
 		my_mlx_pixel_put(game, col, idx++, shade);
 }
 
-int	check_circle(float angle, char axis)
+int	unit_circle(float angle, char axis)
 {
 	if (axis == 'x')
 	{

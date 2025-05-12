@@ -18,7 +18,7 @@
 
 # include <fcntl.h>
 # include "libft/libft.h"
-# include "minilibx_opengl/mlx.h"
+# include "minilibx-linux/mlx.h"
 # include "GNL/get_next_line_bonus.h"
 # include "printf/ft_printf.h"
 #include <unistd.h>
@@ -252,6 +252,7 @@ int	exit_success(t_game *cub);
 
 
 // ------------> RAYCASTING FUNCTIONS <------------
+void	launch_game(t_game *cub);
 void  render_color_buffer(t_game *cub);
 void	project_rays(t_game *game);
 int	render_loop(void *param);
@@ -275,8 +276,8 @@ float	get_h_inter(t_game *mlx, float angl);
 void	shift_player(t_game *game, double delta_x, double delta_y);
 float	get_v_inter(t_game *mlx, float angl);
 void	cast_rays(t_game *mlx);
-t_txtdata	*get_txt(t_game *cub, int flag);
-double	texture_x(t_game *cub, t_txtdata *texture, int flag);
+t_txtdata	*fetch_texture(t_game *game, int is_hori);
+double	get_texture_coord(t_game *game, t_txtdata *txt, int is_hori);
 void	draw_floor_ceiling(t_game *cub, int ray, int t_pix, int b_pix);
 int	unit_circle(float angle, char c);
 void	my_pixel_put(t_img *img, int x, int y, int color);
@@ -292,6 +293,7 @@ int	map_name(char *map);
 int check_wall(t_cub *game);
 void	is_parsing(t_cub *game, char *file);
 int valid_characters(char **map, t_cub *game);
+void	my_mlx_pixel_put(t_game *cub, int x, int y, int color);
 void free_textures(t_cub *cub);
 void exit_error(t_cub *cub, char *msg);
 t_cub *textures_parsing(t_cub *cub, char *line);

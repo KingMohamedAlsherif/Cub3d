@@ -33,7 +33,7 @@ int	render_loop(void *param)
 	if (game->img->img)
 		mlx_destroy_image(game->mlx_ptr, game->img->img);
 	game->img->img = mlx_new_image(game->mlx_ptr, S_WIDTH, S_HEIGHT);
-	game->img->addr = mlx_get_map_addr(game->img->img, &game->img->bpp,
+	game->img->addr = mlx_get_data_addr(game->img->img, &game->img->bpp,
 			&game->img->line_len, &game->img->endian);
 	update_player(game, 0, 0);
 	project_rays(game);
