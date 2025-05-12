@@ -20,7 +20,20 @@ void	my_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	draw_wall(t_cub *cub, int t_pix, int b_pix, double wall_h)
+void	my_mlx_pixel_put(t_game *cub, int x, int y, int color)
+{
+	if (x < 0)
+		return ;
+	else if (x >= S_WIDTH)
+		return ;
+	if (y < 0)
+		return ;
+	else if (y >= S_HEIGHT)
+		return ;
+	my_pixel_put(cub->img, x, y, color);
+}
+
+void	draw_wall(t_game *cub, int t_pix, int b_pix, double wall_h)
 {
 	int			color;
 	t_txtdata	*txt;
@@ -28,9 +41,9 @@ void	draw_wall(t_cub *cub, int t_pix, int b_pix, double wall_h)
 	double		y_o;
 	double		fact;
 
-	txt = get_txt(cub, cub->ray->wall_flag);
+	txt = fetch_texture(cub, cub->ray->wall_flag);
 	fact = (double)txt->height / wall_h;
-	x_o = texture_x(cub, txt, cub->ray->wall_flag);
+	x_o = get_texture_coord(cub, txt, cub->ray->wall_flag);
 	y_o = (t_pix - (S_HEIGHT / 2) + (wall_h / 2)) * fact;
 	if (y_o < 0)
 		y_o = 0;
@@ -52,7 +65,7 @@ float	nor_angle(float angle)
 	return (angle);
 }
 
-void	render_wall(t_cub *cub, int ray)
+void	render_wall(t_game *cub, int ray)
 {
 	double	wall_h;
 	double	b_pix;

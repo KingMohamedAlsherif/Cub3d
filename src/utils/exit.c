@@ -1,7 +1,7 @@
 
 #include "../cub3d.h"
 
-static void	exit_mlx(t_cub *cub)
+static void	exit_mlx(t_game *cub)
 {
 	if (cub->txtrs)
 	{
@@ -28,7 +28,7 @@ static void	exit_mlx(t_cub *cub)
 		free(cub->mlx_ptr);
 }
 
-static void	exit_clean(t_cub *cub)
+static void	exit_clean(t_game *cub)
 {
 	ft_free(&cub->file.file_arr, 'a');
 	ft_free(&cub->map->map_arr, 'a');
@@ -38,15 +38,15 @@ static void	exit_clean(t_cub *cub)
 	exit_mlx(cub);
 }
 
-void	exit_failure(t_cub *cub, char *err_msg)
+void	exit_failure(t_game *cub, char *err_msg)
 {
 	exit_clean(cub);
 	if (*err_msg)
-		ft_printf(2, "%s\n", err_msg);
+		ft_printf("%s\n", err_msg);
 	exit(EXIT_FAILURE);
 }
 
-int	exit_success(t_cub *cub)
+int	exit_success(t_game *cub)
 {
 	exit_clean(cub);
 	exit(EXIT_SUCCESS);

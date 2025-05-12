@@ -12,7 +12,7 @@
 
 #include "../cub3d.h"
 
-void	launch_game(t_cub *cub)
+void	launch_game(t_game *cub)
 {
 	cub->win_ptr = mlx_new_window(cub->mlx_ptr, S_WIDTH, S_HEIGHT, "cub3d");
 	if (!cub->win_ptr)
@@ -27,13 +27,13 @@ void	launch_game(t_cub *cub)
 
 int	render_loop(void *param)
 {
-	t_cub	*game;
+	t_game	*game;
 
-	game = (t_cub *)param;
+	game = (t_game *)param;
 	if (game->img->img)
 		mlx_destroy_image(game->mlx_ptr, game->img->img);
 	game->img->img = mlx_new_image(game->mlx_ptr, S_WIDTH, S_HEIGHT);
-	game->img->addr = mlx_get_map_addr(game->img->img, &game->img->bpp,
+	game->img->addr = mlx_get_data_addr(game->img->img, &game->img->bpp,
 			&game->img->line_len, &game->img->endian);
 	update_player(game, 0, 0);
 	project_rays(game);
@@ -41,7 +41,7 @@ int	render_loop(void *param)
 	return (0);
 }
 
-void	update_player(t_cub *game, double delta_x, double delta_y)
+void	update_player(t_game *game, double delta_x, double delta_y)
 {
 	if (game->player->rot_flag == 1)
 		turn_player(game, 1);

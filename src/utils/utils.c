@@ -1,23 +1,23 @@
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
-void	use_atoi(t_cub *cub, char *str_nbr, int *counter)
-{
-	t_atoi	res;
-	int		nbr;
+// void	use_atoi(t_game *cub, char *str_nbr, int *counter)
+// {
+// 	t_atoi	res;
+// 	int		nbr;
 
-	if (!str_nbr || !*str_nbr)
-		return (exit_failure(cub, "COLOR_ERR"));
-	res = ft_atoi(str_nbr);
-	if (res.error)
-		return (exit_failure(cub, "COLOR_ERR"));
-	nbr = (int)res.nbr;
-	if (nbr < 0 || nbr > 255)
-		return (exit_failure(cub, "COLOR_ERR"));
-	*counter = nbr;
-}
+// 	if (!str_nbr || !*str_nbr)
+// 		return (exit_failure(cub, "COLOR_ERR"));
+// 	res = ft_atoi(str_nbr);
+// 	if (res.error)
+// 		return (exit_failure(cub, "COLOR_ERR"));
+// 	nbr = (int)res.nbr;
+// 	if (nbr < 0 || nbr > 255)
+// 		return (exit_failure(cub, "COLOR_ERR"));
+// 	*counter = nbr;
+// }
 
-void	calculate_angle(t_cub *cub, char direction, int x, int y)
+void	calculate_angle(t_game *cub, char direction, int x, int y)
 {
 	if (direction == 'N')
 		cub->player->plyr_angle = 3 * M_PI / 2;
