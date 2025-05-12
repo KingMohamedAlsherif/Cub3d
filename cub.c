@@ -18,7 +18,7 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 	{
-		ft_printf(2, "%s\n", "Invalid arguments");
+		// ft_printf(2, "%s\n", "Invalid arguments");
 		exit(EXIT_FAILURE);
 	}
 	init(&cub, av[1]);
