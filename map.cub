@@ -1,11 +1,9 @@
-R 800 600
 NO texture_north.xpm
 SO texture_south.xpm
 WE texture_west.xpm
 EA texture_east.xpm
-S sprite.xpm
 F 220,100,0
-C 
+C 100,220,0
 
 1111111111
 1000000001
@@ -14,6 +12,6 @@ C
 1000000001
 1000000001
 1000000001
-1000000001
+100000N001
 1000000001
 1111111111

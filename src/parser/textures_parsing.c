@@ -84,7 +84,9 @@ static void assign_texture(t_cub *cub, char *line, char **texture, int *    pos_
         *pos_flag = 1; // Mark texture as assigned
     }
     else
+    {
         exit_error(cub, "Duplicate texture definition");
+    }
     free(line); // Free the input line
 }
 

@@ -18,14 +18,14 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 	{
-		// ft_printf(2, "%s\n", "Invalid arguments");
+		write(2, "Error\nWrong number of arguments\n", 32);
 		exit(EXIT_FAILURE);
 	}
 	init(&cub, av[1]);
 	cub.mlx_ptr = mlx_init();
 	if (!cub.mlx_ptr)
-		exit_failure(&cub, "Error\nFailed to initialize mlx");
-	// parsing(&cub, av[1]);
+		exit_failure(&cub, "Error\nFailed to initialize mlx\n");
+	parsing(&cub, av[1]);
 	launch_game(&cub);
 	return (0);
 }

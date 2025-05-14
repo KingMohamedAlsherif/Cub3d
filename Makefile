@@ -12,11 +12,9 @@
 
 NAME		=	cub3D
 
-SRCS		=	src/parser/map_parsing1.c \
-                src/parser/map_parsing2.c \
-                src/parser/color_parsing.c \
-				src/parser/textures_parsing.c \
-				src/parser/after_parsing.c \
+SRCS		=	src/parsing/parsing.c \
+                src/parsing/utils.c \
+                src/parsing/validate.c \
                 src/raycasting/raycasting.c \
                 src/raycasting/move.c \
                 src/raycasting/exec.c \
@@ -38,7 +36,7 @@ CFLAGS		=	-g3 -fsanitize=address -Iminilibx-linux -IGNL -Iprintf
 
 LIBFT		=	libft/libft.a
 
-PRINTF		=	printf/libftprintf.a
+# PRINTF		=	printf/libftprintf.a
 
 MLX 		=	minilibx-linux/libmlx.a
 
@@ -52,8 +50,8 @@ $(LIBFT):
 $(MLX):
 	$(MAKE) -C minilibx-linux
 
-$(PRINTF):
-	$(MAKE) -C printf
+# $(PRINTF):
+# 	$(MAKE) -C printf
 
 $(NAME) : $(OBJS) $(LIBFT) $(PRINTF) $(MLX)
 	$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) -o $(NAME) $(LIBFT) $(MLX) $(PRINTF)
@@ -63,12 +61,12 @@ $(NAME) : $(OBJS) $(LIBFT) $(PRINTF) $(MLX)
 
 clean :
 	$(MAKE) -C libft clean
-	$(MAKE) -C printf clean
+	# $(MAKE) -C printf clean
 	rm -f $(OBJS)
         
 fclean: clean
 	$(MAKE) -C libft fclean
-	$(MAKE) -C printf fclean
+	# $(MAKE) -C printf fclean
 	$(MAKE) -C minilibx_opengl clean
 	rm -rf $(NAME)
 re:	fclean all
