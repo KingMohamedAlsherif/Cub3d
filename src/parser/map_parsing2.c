@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   map_parsing2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 12:35:55 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/05/06 18:58:15 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/05/15 17:36:37 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "parse.h"
 
-// rebuild this function to check the player is valid 
 int check_void(int i, int j, char invalid, t_cub *game)
 {
     if (game->map[0][j] == '0' || game->map[0][j] == game->player)
@@ -116,6 +115,21 @@ int valid_characters(char **map, t_cub *game)
 // }
 
 
+ void	process_map_line(t_cub *game, char ***map_lines,
+	int *line_count, char *line)
+{
+	char	**temp;
+
+	temp = realloc(*map_lines, sizeof(char *) * (*line_count + 1));
+	if (!temp)
+	{
+		free(line);
+		exit_error(game, "Memory allocation failed for map lines");
+	}
+	*map_lines = temp;
+	(*map_lines)[*line_count] = strip_newline(line);
+	(*line_count)++;
+}
 
 void	parse_file_lines(t_cub *game, int *line_count,
 	char ***map_lines)
@@ -123,17 +137,16 @@ void	parse_file_lines(t_cub *game, int *line_count,
 	char	*line;
 
 	while ((line = get_next_line(game->fd)))
-	{
-		if (line[0] && line[0] != '\n')
-		{
-			if (is_texture_or_color(line))
-				textures_parsing(game, line);
-			else
-				process_map_line(game, map_lines, line_count, line);
-		}
-		else
-			free(line);
-	}
+    {
+	    if (line[0] && line[0] != '\n')
+	    {
+		    if (is_texture_or_color(line))
+			    textures_parsing(game, line);
+		    else
+			    process_map_line(game, map_lines, line_count, line);
+	    }
+    }   free(line);
+
 }
 
 

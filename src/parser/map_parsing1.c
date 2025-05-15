@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map_parsing1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 11:56:45 by amagoury          #+#    #+#             */
-/*   Updated: 2025/05/06 19:00:07 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/05/15 17:32:34 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "parse.h"
 
 int	map_name(char *map)
 {
@@ -64,40 +64,4 @@ void parse_cub_file(t_cub *cub, char *filename)
 	game->map[count] = NULL;
 	game->rows = count;
 	free(map_lines);
-}
-
-void process_map_line(t_cub *game, char ***map_lines, int *line_count, char *line)
-{
-    char **new_map_lines;
-    int i;
-
-    // Allocate memory for the new array with one additional slot
-    new_map_lines = malloc(sizeof(char *) * (*line_count + 1));
-    if (!new_map_lines)
-    {
-        free(line);
-        free_map_lines(*map_lines, *line_count); // Free previously allocated lines
-        exit_error(game, "Memory allocation failed for map lines");
-    }
-
-    // Copy existing pointers to the new array
-    for (i = 0; i < *line_count; i++)
-        new_map_lines[i] = (*map_lines)[i];
-
-    // Free the old array (but not the strings it points to)
-    free(*map_lines);
-
-    // Assign the new array to map_lines
-    *map_lines = new_map_lines;
-
-    // Add the new line to the array
-    (*map_lines)[*line_count] = strip_newline(line);
-    (*line_count)++;
-}
-
-void free_map_lines(char **map_lines, int line_count)
-{
-    for (int i = 0; i < line_count; i++)
-        free(map_lines[i]);
-    free(map_lines);
 }

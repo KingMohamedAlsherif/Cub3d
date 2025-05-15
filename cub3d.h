@@ -4,12 +4,12 @@
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
-/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/05 16:37:59 by amagoury          #+#    #+#             */
-/*   Updated: 2025/04/17 19:42:34 by aishamagour      ###   ########.fr       */
-/*   Updated: 2025/04/17 18:43:35 by aishamagour      ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2025/05/15 16:56:48 by aishamagour      ###   ########.fr       */
 /*                                                                            */
+/* ************************************************************************** */
+
 /* ************************************************************************** */
 
 
@@ -18,7 +18,7 @@
 
 # include <fcntl.h>
 # include "libft/libft.h"
-# include "minilibx-linux/mlx.h"
+# include "minilibx_opengl/mlx.h"
 # include "GNL/get_next_line_bonus.h"
 # include "printf/ft_printf.h"
 #include <unistd.h>
@@ -27,8 +27,9 @@
 #include <stdbool.h>
 #include <math.h>
 #include <stdbool.h>
+#include "src/parser/parse.h"
 
-# define M_PI 3.14159265358979323846
+// # define M_PI 3.14159265358979323846
 # define ON_DESTROY 17
 # define MLX_KEY_ESCAPE 53
 # define MLX_KEY_W 13
@@ -56,18 +57,30 @@ typedef struct s_point
     int		y;
 }	t_point;
 
-typedef struct s_textures
+// typedef struct s_textures
+// {
+//     char *north;
+//     char *south;
+//     char *west;
+//     char *east;
+//     void *north_img; // MLX image pointer
+//     void *south_img;
+//     void *west_img;
+//     void *east_img;
+// } t_textures;
+typedef struct s_player
 {
-    char *north;
-    char *south;
-    char *west;
-    char *east;
-    void *north_img; // MLX image pointer
-    void *south_img;
-    void *west_img;
-    void *east_img;
-} t_textures;
-
+	int plyr_x;
+	int plyr_y;
+	double plyr_angle;
+	float fov_rd;
+	int rot_flag;
+	int r_l;
+	int u_d;
+	int direction;
+	// int m_x; // not used 
+	// int m_y; // not used
+} t_player;
 typedef struct s_map
 {
 	char **map_arr;
@@ -133,18 +146,7 @@ typedef struct s_img
 	int tx_height;
 } t_img;
 
-typedef struct s_player
-{
-	int plyr_x;
-	int plyr_y;
-	double plyr_angle;
-	float fov_rd;
-	int rot_flag;
-	int r_l;
-	int u_d;
-	// int m_x; // not used 
-	// int m_y; // not used
-} t_player;
+
 
 typedef struct s_ray
 {
@@ -158,25 +160,19 @@ typedef struct s_ray
 	int wall_flag;
 } t_ray;
 
-// typedef struct s_textures
-// {
-// 	char    *north;
-// 	char    *south;
-// 	char    *west;
-// 	char    *east;
-// } t_textures;
 
-typedef struct color
-{
-	int floor_red;
-	int floor_green;
-	int floor_blue;
-	int ceiling_red;
-	int ceiling_green;
-	int ceiling_blue;
-	int floor_color;
-	int ceiling_color;
-} t_color;
+
+// typedef struct color
+// {
+// 	int floor_red;
+// 	int floor_green;
+// 	int floor_blue;
+// 	int ceiling_red;
+// 	int ceiling_green;
+// 	int ceiling_blue;
+// 	int floor_color;
+// 	int ceiling_color;
+// } t_color;
 typedef struct s_game
 {
 	void *mlx_ptr;
@@ -188,40 +184,43 @@ typedef struct s_game
 	t_img *img;
 	t_ray *ray;
 	t_txtrs *txtrs;
+	
 } t_game;
 
-typedef struct s_cub
-{
-	void				*mlx;
-	void				*win;
-	char				**rgb;
-	char				**map;
-	unsigned long		floor;
-	unsigned long		ceiling;
-	int   width;
-    int     height;
-	int					*color_buffer;
-	int					*tex;
-	bool				color_flag;
-	int					fd;
-	int					no_pos;
-	int					so_pos;
-	int					we_pos;
-	int					ea_pos;
-	t_textures          textures;
-	char		player_dir;
-	double player_x;
-    double player_y;
-	void	*window;
-	char	player;
-	int		rows;
-	int		cols;
-	int					p_flag;
-	int					floor_pos;
-	int					ceiling_pos;
-	char				*c_rgb;
-	char				*f_rgb;
-}				t_cub;
+// typedef struct s_cub
+// {
+// 	void				*mlx;
+// 	void				*win;
+// 	char				**rgb;
+// 	char				**map;
+// 	t_player			player;
+// 	unsigned long		floor;
+// 	unsigned long		ceiling;
+// 	int   width;
+//     int     height;
+// 	int					*color_buffer;
+// 	int					*tex;
+// 	bool				color_flag;
+// 	int					fd;
+// 	int					no_pos;
+// 	int					so_pos;
+// 	int					we_pos;
+// 	int					ea_pos;
+// 	t_textures          textures;
+// 	char		player_dir;
+// 	double player_x;
+//     double player_y;
+// 	void	*window;
+// 	// char	player;
+
+// 	int		rows;
+// 	int		cols;
+// 	int					p_flag;
+// 	int					floor_pos;
+// 	int					ceiling_pos;
+// 	char				*c_rgb;
+// 	char				*f_rgb;
+// }				t_cub;
 
 
 // typedef struct s_gnl
@@ -285,33 +284,8 @@ void	draw_wall(t_game *cub, int t_pix, int b_pix, double wall_h);
 float	nor_angle(float angle);
 void	render_wall(t_game *cub, int ray);
 int	key_release(t_mlx_key_data keydata, t_game *game);
-void    convert_parsing_to_cub3d(t_game *cub, t_cub *parsing);
-void    convert_textures(t_game *cub, t_cub *parsing);
-
-// ------------> paresing FUNCTIONS <------------
-int	map_name(char *map);
-int check_wall(t_cub *game);
-void	is_parsing(t_cub *game, char *file);
-int valid_characters(char **map, t_cub *game);
 void	my_mlx_pixel_put(t_game *cub, int x, int y, int color);
-void free_textures(t_cub *cub);
-void exit_error(t_cub *cub, char *msg);
-t_cub *textures_parsing(t_cub *cub, char *line);
-void assign_color(t_cub *cub, char *line, char **rgb, int *pos_flag, unsigned long *color);
-int	is_texture_or_color(char *line);
-int	is_valid_rgb_value(char *str);
-void assign_color(t_cub *cub, char *line, char **rgb, int *pos_flag, unsigned long *color);
-char *strip_newline(char *line);
-void parse_cub_file(t_cub *cub, char *filename);
-void	parse_file_lines(t_cub *game, int *line_count,char ***map_lines);
-void	assign_map(t_cub *game, char **map_lines, int count);
-int check_void(int i, int j, char invalid, t_cub *game);
-void process_map_line(t_cub *game, char ***map_lines, int *line_count, char *line);
-void free_map_lines(char **map_lines, int line_count);
-void	init_structs(t_game *cub, t_file *file, char *input_file);
-void	init_malloc(t_game *cub);
-void	init_txtr(t_txtdata *txtr);
-void	init(t_game *cub, char *input_file);
-int	create_rgb(int *color_arr);
-void	calculate_angle(t_game *cub, char direction, int x, int y);
+// void    convert_parsing_to_cub3d(t_game *cub, t_cub *parsing);
+// void    convert_textures(t_game *cub, t_cub *parsing);
+
 #endif

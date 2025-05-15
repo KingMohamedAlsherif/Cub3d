@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 18:07:11 by amagoury          #+#    #+#             */
-/*   Updated: 2024/03/24 15:40:59 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/05/15 17:27:36 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

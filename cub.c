@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 13:09:15 by amagoury          #+#    #+#             */
-/*   Updated: 2025/04/11 16:11:22 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/05/15 17:39:30 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,18 @@
 int	main(int ac, char **av)
 {
 	t_game	cub;
-
+	t_cub	parsing;
 	if (ac != 2)
 	{
-		// ft_printf(2, "%s\n", "Invalid arguments");
+		write(2, "Error\nInvalid number of arguments\n", 35);
 		exit(EXIT_FAILURE);
 	}
+	cub = (t_game){0};
 	init(&cub, av[1]);
-	cub.mlx_ptr = mlx_init();
-	if (!cub.mlx_ptr)
-		exit_failure(&cub, "Error\nFailed to initialize mlx");
-	// parsing(&cub, av[1]);
+	// cub.mlx_ptr = mlx_init();
+	// if (!cub.mlx_ptr)
+		// exit_failure(&cub, "Error\nFailed to initialize mlx");
+	is_parsing(&parsing, av[1]);
 	launch_game(&cub);
 	return (0);
 }

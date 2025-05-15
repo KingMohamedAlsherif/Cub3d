@@ -3,17 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   textures_parsing.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 02:30:59 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/05/06 19:34:45 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/05/15 17:09:12 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "parse.h"
 
 void free_textures(t_cub *cub)
 {
+    if (!cub)
+        return;
+
     if (cub->textures.north)
     {
         free(cub->textures.north);
@@ -46,6 +49,7 @@ void free_textures(t_cub *cub)
     }
 }
 
+
 int	is_texture_or_color(char *line)
 {
 	if (!line)
@@ -60,7 +64,7 @@ int	is_texture_or_color(char *line)
 
 void exit_error(t_cub *cub, char *msg)
 {
-    free_textures(cub);
+    // free_textures(cub);
     if (cub->fd >= 0)
         close(cub->fd);
     printf("Error\n%s\n", msg);

@@ -27,7 +27,7 @@ void	init_structs(t_game *cub, t_file *file, char *input_file)
 {
 	t_map		*map;
 	t_player	*player;
-
+	
 	map = cub->map;
 	player = cub->player;
 	file->file_arr = NULL;

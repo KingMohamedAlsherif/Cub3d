@@ -6,23 +6,23 @@
 /*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 13:38:41 by amagoury          #+#    #+#             */
-/*   Updated: 2024/03/31 11:33:48 by aishamagour      ###   ########.fr       */
+/*   Updated: 2025/05/15 17:25:55 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *str)
-{
-	size_t	a;
+// size_t	ft_strlen(const char *str)
+// {
+// 	size_t	a;
 
-	if (!str)
-		return (0);
-	a = 0;
-	while (str[a])
-		a++;
-	return (a);
-}
+// 	if (!str)
+// 		return (0);
+// 	a = 0;
+// 	while (str[a])
+// 		a++;
+// 	return (a);
+// }
 
 char	*ft_strchr(const char *s, int c)
 {

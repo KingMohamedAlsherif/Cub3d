@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    makefile                                           :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/05 16:30:23 by amagoury          #+#    #+#              #
-#    Updated: 2025/05/10 16:51:59 by aishamagour      ###   ########.fr        #
+#    Updated: 2025/05/13 16:25:43 by aishamagour      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,15 +34,16 @@ OBJS 		=	$(SRCS:.c=.o)
 
 CC 			=	cc
 
-CFLAGS		=	-g3 -fsanitize=address -Iminilibx-linux -IGNL -Iprintf
+CFLAGS		=	-Iminilibx_opengl -IGNL -Iprintf -fsanitize=address -g3
+ #-fsanitize=address -g3
 
 LIBFT		=	libft/libft.a
 
 PRINTF		=	printf/libftprintf.a
 
-MLX 		=	minilibx-linux/libmlx.a
+MLX 		=	minilibx_opengl/libmlx.a
 
-MLX_FLAGS	=	-Lminilibx-linux -lmlx -lGL -lX11 -lXext -lm -lbsd
+MLX_FLAGS	=	-Lminilibx_opengl -lmlx -framework OpenGL -framework AppKit
 
 all : $(NAME)
 
@@ -50,7 +51,7 @@ $(LIBFT):
 	$(MAKE) -C libft
 
 $(MLX):
-	$(MAKE) -C minilibx-linux
+	$(MAKE) -C minilibx_opengl
 
 $(PRINTF):
 	$(MAKE) -C printf

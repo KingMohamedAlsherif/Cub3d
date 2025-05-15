@@ -6,11 +6,11 @@
 /*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 15:40:42 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/05/05 18:55:55 by aishamagour      ###   ########.fr       */
+/*   Updated: 2025/05/15 17:08:54 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "parse.h"
 
  int	is_valid_rgb_value(char *str)
 {
