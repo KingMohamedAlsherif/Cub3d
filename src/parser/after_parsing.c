@@ -1,4 +1,4 @@
-// #include "../cub3d.h"
+// // #include "../cub3d.h"
 // #include "parse.h"
 // // Create a function that convert some variables in parsing header to variables in the cub3d header
 

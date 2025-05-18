@@ -6,7 +6,7 @@
 /*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 11:56:45 by amagoury          #+#    #+#             */
-/*   Updated: 2025/05/15 17:32:34 by aishamagour      ###   ########.fr       */
+/*   Updated: 2025/05/18 17:48:29 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 int	map_name(char *map)
 {
-	if ((ft_strncmp(&map[ft_strlen(map)] - 4, ".cub", 4)) != 0)
+	int len = ft_strlen(map);
+
+	if (len < 4 || ft_strncmp(&map[len - 4], ".cub", 4) != 0)
 	{
 		write(2, "not valid name\n", 16);
 		return (-1);
@@ -22,37 +24,69 @@ int	map_name(char *map)
 	return (1);
 }
 
+
 void parse_cub_file(t_cub *cub, char *filename)
 {
-    char *line;
+	char *line;
+	char *trimmed;
 
-    cub->fd = open(filename, O_RDONLY);
-    if (cub->fd < 0)
-        exit_error(cub, "Cannot open file");
-    while ((line = get_next_line(cub->fd))) // Use return value directly
-    {
-        if (line[0] && line[0] != '\n') // Skip empty lines
-            textures_parsing(cub, line);
-        else
-            free(line); // Free empty lines
-    }
-    // No need to free line after loop, as get_next_line returns NULL on EOF
-    // Validate textures and colors
-    if (!cub->no_pos || !cub->so_pos || !cub->we_pos || !cub->ea_pos || !cub->floor_pos || !cub->ceiling_pos)
-        exit_error(cub, "Missing texture or color");
-    // Parse map into cub->map, cub->map_cpy, etc. (add later)
-    close(cub->fd);
-    cub->fd = -1;
+	cub->fd = open(filename, O_RDONLY);
+	if (cub->fd < 0)
+		exit_error(cub, "Cannot open file");
+
+	while ((line = get_next_line(cub->fd)))
+	{
+		trimmed = ft_strtrim(line, " \t\n"); // Remove leading/trailing whitespace
+		if (trimmed[0]) // Only process non-empty lines
+			textures_parsing(cub, trimmed);
+		free(trimmed);
+		free(line);
+	}
+
+	if (!cub->no_pos || !cub->so_pos || !cub->we_pos || !cub->ea_pos
+		|| !cub->floor_pos || !cub->ceiling_pos)
+		exit_error(cub, "Missing texture or color");
+
+	close(cub->fd);
+	cub->fd = -1;
+}
+
+ static void pad_map_rows(t_cub *game)
+{
+	int i;
+	char *new_row;
+
+	i = 0;
+	while (i < game->rows)
+	{
+		int len = ft_strlen(game->map[i]);
+		if (len < game->cols)
+		{
+			new_row = malloc(game->cols + 1);
+			if (!new_row)
+				exit_error(game, "Memory allocation failed while padding map");
+
+			ft_memcpy(new_row, game->map[i], len);
+			ft_memset(new_row + len, ' ', game->cols - len); // fill remaining with spaces
+			new_row[game->cols] = '\0';
+
+			free(game->map[i]);
+			game->map[i] = new_row;
+		}
+		i++;
+	}
 }
 
 
- void	assign_map(t_cub *game, char **map_lines, int count)
+void	assign_map(t_cub *game, char **map_lines, int count)
 {
 	int	i;
 
+	game->cols = 0; // Important: reset before calculating
 	game->map = malloc(sizeof(char *) * (count + 1));
 	if (!game->map)
 		exit_error(game, "Memory allocation failed for map");
+
 	i = -1;
 	while (++i < count)
 	{
@@ -64,4 +98,6 @@ void parse_cub_file(t_cub *cub, char *filename)
 	game->map[count] = NULL;
 	game->rows = count;
 	free(map_lines);
+	pad_map_rows(game);
 }
+

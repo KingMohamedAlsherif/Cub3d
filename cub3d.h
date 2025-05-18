@@ -6,7 +6,7 @@
 /*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/05/15 16:56:48 by aishamagour      ###   ########.fr       */
+/*   Updated: 2025/05/17 04:02:27 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,7 +285,7 @@ float	nor_angle(float angle);
 void	render_wall(t_game *cub, int ray);
 int	key_release(t_mlx_key_data keydata, t_game *game);
 void	my_mlx_pixel_put(t_game *cub, int x, int y, int color);
-// void    convert_parsing_to_cub3d(t_game *cub, t_cub *parsing);
-// void    convert_textures(t_game *cub, t_cub *parsing);
+void    convert_parsing_to_cub3d(t_game *cub, t_cub *parsing);
+void    convert_textures(t_game *cub, t_cub *parsing);
 
 #endif

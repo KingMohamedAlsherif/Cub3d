@@ -6,18 +6,41 @@
 /*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:10:50 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/05/15 17:33:37 by aishamagour      ###   ########.fr       */
+/*   Updated: 2025/05/18 20:23:34 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSE_H
 # define PARSE_H
 
-#include "../cub3d.h"
+# include <fcntl.h>
+# include "../../libft/libft.h"
+# include "../../minilibx_opengl/mlx.h"
+# include "../../GNL/get_next_line_bonus.h"
+# include "../../printf/ft_printf.h"
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <stdbool.h>
+# include <math.h>
+# include <stdbool.h>
 #define EXIT_FAILURE 1
 #define EXIT_SUCCESS 0
 
 // Structures
+// typedef struct s_game
+// {
+// 	void *mlx_ptr;
+// 	void *win_ptr;
+// 	// t_file file;
+// 	// t_txtrs texture;
+// 	// t_map *map;
+// 	// t_player *player;
+// 	// t_img *img;
+// 	// t_ray *ray;
+// 	// t_txtrs *txtrs;
+	
+// } t_game;
 typedef struct s_textures
 {
     char *north;
@@ -107,7 +130,7 @@ void    assign_color(t_cub *cub, char *line, char **rgb, int *pos_flag, unsigned
 void    parse_cub_file(t_cub *cub, char *filename);
 void    parse_file_lines(t_cub *game, int *line_count, char ***map_lines);
 void    assign_map(t_cub *game, char **map_lines, int count);
-int     check_void(int i, int j, char invalid, t_cub *game);
+int check_void(int i, int j, t_cub *game);
 void    free_map_lines(char **map_lines, int line_count);
 void    process_map_line(t_cub *game, char ***map_lines, int *line_count, char *line);
 
