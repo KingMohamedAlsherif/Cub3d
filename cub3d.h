@@ -6,7 +6,7 @@
 /*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/05/17 04:02:27 by aishamagour      ###   ########.fr       */
+/*   Updated: 2025/05/20 21:52:30 by aishamagour      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 #include <math.h>
 #include <stdbool.h>
 #include "src/parser/parse.h"
+
+
+
 
 // # define M_PI 3.14159265358979323846
 # define ON_DESTROY 17
@@ -77,7 +80,7 @@ typedef struct s_player
 	int rot_flag;
 	int r_l;
 	int u_d;
-	int direction;
+	int direction;		
 	// int m_x; // not used 
 	// int m_y; // not used
 } t_player;
@@ -285,7 +288,7 @@ float	nor_angle(float angle);
 void	render_wall(t_game *cub, int ray);
 int	key_release(t_mlx_key_data keydata, t_game *game);
 void	my_mlx_pixel_put(t_game *cub, int x, int y, int color);
-void    convert_parsing_to_cub3d(t_game *cub, t_cub *parsing);
-void    convert_textures(t_game *cub, t_cub *parsing);
+// void	convert_parsing_to_cub3d(t_game *cub, t_cub *parsing);
+// void	convert_textures(t_game *cub, t_cub *parsing);
 
 #endif

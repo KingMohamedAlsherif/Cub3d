@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
+/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 13:09:15 by amagoury          #+#    #+#             */
-/*   Updated: 2025/05/15 19:46:55 by aishamagour      ###   ########.fr       */
+/*   Updated: 2025/05/21 16:10:35 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@ int	main(int ac, char **av)
 {
 	t_game	cub;
 	t_cub	parsing;
+
 	if (ac != 2)
 	{
 		write(2, "Error\nInvalid number of arguments\n", 35);
 		exit(EXIT_FAILURE);
 	}
-	cub = (t_game){0};
+	ft_bzero(&parsing, sizeof(t_cub));
 	init(&cub, av[1]);
 	cub.mlx_ptr = mlx_init();
 	if (!cub.mlx_ptr)

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   color_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
+/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 15:40:42 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/05/17 03:10:17 by aishamagour      ###   ########.fr       */
+/*   Updated: 2025/05/21 08:02:40 by amagoury         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 
- int	is_valid_rgb_value(char *str)
+int	is_valid_rgb_value(char *str)
 {
 	int	i;
 
@@ -27,12 +27,16 @@
 	}
 	return (1);
 }
+
 void	assign_rgb_values(t_color *color, char **rgb, int is_floor)
 {
-	int	r = ft_atoi(rgb[0]);
-	int	g = ft_atoi(rgb[1]);
-	int	b = ft_atoi(rgb[2]);
+	int	r;
+	int	g;
+	int	b;
 
+	r = ft_atoi(rgb[0]);
+	g = ft_atoi(rgb[1]);
+	b = ft_atoi(rgb[2]);
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
 		return ;
 	if (is_floor)
@@ -54,43 +58,41 @@ void	assign_rgb_values(t_color *color, char **rgb, int is_floor)
 void	parse_rgb(t_cub *cub, char *rgb_str, t_color *color, int is_floor)
 {
 	char	**components;
+	int		i;
 
 	components = ft_split(rgb_str, ',');
 	if (!components)
 		exit_error(cub, "Memory allocation failed in RGB parsing");
-	if (components[0] && components[1] && components[2] && !components[3]
+	if (components[0] && components[1] && components[2]
+		&& !components[3]
 		&& is_valid_rgb_value(components[0])
 		&& is_valid_rgb_value(components[1])
 		&& is_valid_rgb_value(components[2]))
 		assign_rgb_values(color, components, is_floor);
-    int	i = 0;
-    while (components[i])
-        free(components[i++]);
-    free(components);
-        
+	i = 0;
+	while (components[i])
+		free(components[i++]);
+	free(components);
 }
 
- void assign_color(t_cub *cub, char *line, char **rgb, int *pos_flag, unsigned long *color)
+void	assign_color(t_cub *cub, char *line, t_color_config *cfg)
 {
-    int i;
-    char *rgb_str;
-    int r, g, b;
+	int		i;
+	char	*rgb_str;
 
-    i = 1; // Skip identifier (e.g., "F")
-    while (line[i] == ' ')
-        i++;
-    if (*rgb == NULL && *pos_flag == 0)
-    {
-        rgb_str = ft_strdup(line + i);
-        if (!rgb_str)
-            exit_error(cub, "Memory allocation failed for color");
-        *rgb = rgb_str;
-        *pos_flag = 1;
-        // Parse RGB values and store in *color
-       
-        *color = (r << 16) | (g << 8) | b; // Combine RGB into unsigned long
-    }
-    else
-        exit_error(cub, "Duplicate color definition");
-    free(line);
+	(void)cfg->color;
+	i = 1;
+	while (line[i] == ' ')
+		i++;
+	if (*(cfg->rgb) == NULL && *(cfg->pos_flag) == 0)
+	{
+		rgb_str = ft_strdup(line + i);
+		if (!rgb_str)
+			exit_error(cub, "Memory allocation failed for color");
+		*(cfg->rgb) = rgb_str;
+		*(cfg->pos_flag) = 1;
+	}
+	else
+		exit_error(cub, "Duplicate color definition");
+	free(line);
 }

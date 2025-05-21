@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+         #
+#    By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/05 16:30:23 by amagoury          #+#    #+#              #
-#    Updated: 2025/05/13 16:25:43 by aishamagour      ###   ########.fr        #
+#    Updated: 2025/05/21 08:51:06 by amagoury         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,10 @@ SRCS		=	src/parser/map_parsing1.c \
                 src/parser/color_parsing.c \
 				src/parser/textures_parsing.c \
 				src/parser/after_parsing.c \
+				src/parser/final_parsing.c \
+				src/parser/free_paring.c \
+				src/parser/valid_characters.c\
+				src/parser/utils2.c \
                 src/raycasting/raycasting.c \
                 src/raycasting/move.c \
                 src/raycasting/exec.c \
