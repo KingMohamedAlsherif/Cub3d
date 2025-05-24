@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+         #
+#    By: malsheri <malsheri@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/05 16:30:23 by amagoury          #+#    #+#              #
-#    Updated: 2025/05/13 16:25:43 by aishamagour      ###   ########.fr        #
+#    Updated: 2025/05/24 13:31:30 by malsheri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,10 @@ SRCS		=	src/parser/map_parsing1.c \
                 src/parser/color_parsing.c \
 				src/parser/textures_parsing.c \
 				src/parser/after_parsing.c \
+				src/parser/final_parsing.c \
+				src/parser/free_parsing.c \
+				src/parser/valid_characters.c\
+				src/parser/utils2.c \
                 src/raycasting/raycasting.c \
                 src/raycasting/move.c \
                 src/raycasting/exec.c \
@@ -34,16 +38,16 @@ OBJS 		=	$(SRCS:.c=.o)
 
 CC 			=	cc
 
-CFLAGS		=	-Iminilibx_opengl -IGNL -Iprintf -fsanitize=address -g3
+CFLAGS		=	-Imlx -IGNL -Iprintf -fsanitize=address -g3
  #-fsanitize=address -g3
 
 LIBFT		=	libft/libft.a
 
 PRINTF		=	printf/libftprintf.a
 
-MLX 		=	minilibx_opengl/libmlx.a
+MLX 		=	mlx/libmlx.a
 
-MLX_FLAGS	=	-Lminilibx_opengl -lmlx -framework OpenGL -framework AppKit
+MLX_FLAGS	=	-Lmlx -lmlx -framework OpenGL -framework AppKit
 
 all : $(NAME)
 
@@ -51,7 +55,7 @@ $(LIBFT):
 	$(MAKE) -C libft
 
 $(MLX):
-	$(MAKE) -C minilibx_opengl
+	$(MAKE) -C mlx
 
 $(PRINTF):
 	$(MAKE) -C printf
@@ -70,7 +74,7 @@ clean :
 fclean: clean
 	$(MAKE) -C libft fclean
 	$(MAKE) -C printf fclean
-	$(MAKE) -C minilibx_opengl clean
+	$(MAKE) -C mlx clean
 	rm -rf $(NAME)
 re:	fclean all
 

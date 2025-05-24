@@ -1,0 +1,67 @@
+Here is the list of variables that need to be filled in the t_game struct and the other structs inside it, in the correct order:
+
+t_game Struct
+mlx_ptr (pointer to the MLX instance)
+win_ptr (pointer to the MLX window)
+file (of type t_file)
+file_arr (array of strings representing the file content)
+filepath_len (length of the file path)
+stage (current stage of parsing or processing)
+file_len (number of lines in the file)
+texture (of type t_txtrs)
+no (pointer to north texture data, t_txtdata)
+so (pointer to south texture data, t_txtdata)
+we (pointer to west texture data, t_txtdata)
+ea (pointer to east texture data, t_txtdata)
+f_arr[3] (RGB array for floor color)
+c_arr[3] (RGB array for ceiling color)
+f_color (final floor color in RGB format)
+c_color (final ceiling color in RGB format)
+map (pointer to t_map)
+map_arr (2D array of characters representing the map)
+map_width (width of the map)
+map_height (height of the map)
+map_st (start index of the map in the file)
+map_end (end index of the map in the file)
+p_x (player's x-coordinate in the map)
+p_y (player's y-coordinate in the map)
+plyr_direction (player's initial direction)
+player (pointer to t_player)
+plyr_x (player's x-coordinate in the game world)
+plyr_y (player's y-coordinate in the game world)
+plyr_angle (player's angle of view)
+fov_rd (field of view in radians)
+rot_flag (rotation flag)
+r_l (rotation left/right flag)
+u_d (movement up/down flag)
+direction (player's movement direction)
+img (pointer to t_img)
+background_img (pointer to the background image)
+wall_img (pointer to the wall image)
+img (pointer to the current image)
+addr (address of the image data)
+pixel (pointer to the pixel data)
+bpp (bits per pixel)
+line_len (length of a line in the image)
+endian (endianness of the image)
+tx_width (texture width)
+tx_height (texture height)
+ray (pointer to t_ray)
+indx (index of the ray)
+ray_angle (angle of the ray)
+hor_x (horizontal intersection x-coordinate)
+hor_y (horizontal intersection y-coordinate)
+ver_x (vertical intersection x-coordinate)
+ver_y (vertical intersection y-coordinate)
+distance (distance to the wall hit)
+wall_flag (flag indicating the type of wall hit)
+txtrs (pointer to t_txtrs)
+Same fields as texture above.
+Summary of Structs Inside t_game
+t_file: Handles file-related data.
+t_txtrs: Manages texture data.
+t_map: Stores map-related data.
+t_player: Contains player-related data.
+t_img: Handles image-related data.
+t_ray: Manages raycasting data.
+This is the order in which the variables should be filled to ensure proper initialization of the t_game struct and its dependencies.

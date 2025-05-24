@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycastirng.c                                      :+:      :+:    :+:   */
+/*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malsheri <malsheri@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 16:21:15 by malsheri          #+#    #+#             */
-/*   Updated: 2025/04/13 16:55:50 by malsheri         ###   ########.fr       */
+/*   Updated: 2025/05/24 14:12:34 by malsheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	wall_hit(float x, float y, t_game *game)
 		return (0);
 	grid_x = floor(x / TILE_SIZE);
 	grid_y = floor(y / TILE_SIZE);
+	printf("grid_x: %d, grid_y: %d\n", grid_x, grid_y);
 	if ((grid_y >= game->map->map_height || grid_x >= game->map->map_width))
 		return (0);
 	if (game->map->map_arr[grid_y] && grid_x <= (int)ft_strlen(game->map->map_arr[grid_y]))
@@ -54,29 +55,30 @@ int	wall_hit(float x, float y, t_game *game)
 
 float	calc_h_intersection(t_game *game, float angle)
 {
-	float	hor_x;
-	float	hor_y;
-	float	delta_x;
-	float	delta_y;
-	int		offset;
-
-	delta_y = TILE_SIZE;
-	delta_x = TILE_SIZE / tan(angle);
-	hor_y = floor(game->player->plyr_y / TILE_SIZE) * TILE_SIZE;
-	offset = check_intersection(angle, &hor_y, &delta_y, 1);
-	hor_x = game->player->plyr_x + (hor_y - game->player->plyr_y) / tan(angle);
-	if ((unit_circle(angle, 'y') && delta_x > 0) || (!unit_circle(angle, 'y')
-			&& delta_x < 0))
-		delta_x *= -1;
-	while (wall_hit(hor_x, hor_y - offset, game))
+	float h_x;
+	float h_y;
+	float x_step;
+	float y_step;
+	int pixel;
+	
+	y_step = TILE_SIZE;
+	x_step = TILE_SIZE / tan(angle);
+	// printf("Player y: %.2f\n", game->player->plyr_y);
+	h_y = floor(game->player->plyr_y / TILE_SIZE) * TILE_SIZE;
+	
+	pixel = check_intersection(angle, &h_y, &y_step, 1);
+	h_x = game->player->plyr_x + (h_y - game->player->plyr_y) / tan(angle);
+	if ((unit_circle(angle, 'y') && x_step > 0) || (!unit_circle(angle, 'y') && x_step < 0))
+		x_step *= -1;
+	while (wall_hit(h_x, h_y - pixel, game))
 	{
-		hor_x += delta_x;
-		hor_y += delta_y;
+		h_x += x_step;
+		h_y += y_step;
 	}
-	game->ray->hor_x = hor_x;
-	game->ray->hor_y = hor_y;
-	return (sqrt(pow(hor_x - game->player->plyr_x, 2) + pow(hor_y
-				- game->player->plyr_y, 2)));
+	game->ray->hor_x = h_x;
+	game->ray->hor_y = h_y;
+	// printf("h_x: %f, h_y: %f\n", h_x, h_y);
+	return (sqrt(pow(h_x - game->player->plyr_x, 2) + pow(h_y - game->player->plyr_y, 2)));
 }
 
 float	calc_v_intersection(t_game *game, float angle)
@@ -113,12 +115,16 @@ void	project_rays(t_game *game)
 	int		ray_idx;
 
 	ray_idx = 0;
+	// printf("Player Y: %d, Player X: %d\n", game->player->plyr_y, game->player->plyr_x);
+	// printf("Player angle: %.2f, FOV: %.2f\n", game->player->plyr_angle, game->player->fov_rd);
 	game->ray->ray_angle = game->player->plyr_angle - (game->player->fov_rd / 2);
 	while (ray_idx < S_WIDTH)
 	{
 		game->ray->wall_flag = 0;
+
 		hor_dist = calc_h_intersection(game, nor_angle(game->ray->ray_angle));
 		vert_dist = calc_v_intersection(game, nor_angle(game->ray->ray_angle));
+		// printf("hor_dist: %.2f, vert_dist: %.2f\n", hor_dist, vert_dist);
 		if (vert_dist <= hor_dist)
 			game->ray->distance = vert_dist;
 		else
@@ -126,6 +132,7 @@ void	project_rays(t_game *game)
 			game->ray->distance = hor_dist;
 			game->ray->wall_flag = 1;
 		}
+		// printf("Distance for ray %d: %.2f\n", ray_idx, game->ray->distance);
 		render_wall(game, ray_idx);
 		ray_idx++;
 		game->ray->ray_angle += (game->player->fov_rd / S_WIDTH);

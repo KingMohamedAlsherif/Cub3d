@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
+/*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malsheri <malsheri@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 15:46:11 by malsheri          #+#    #+#             */
-/*   Updated: 2025/04/13 16:13:17 by malsheri         ###   ########.fr       */
+/*   Updated: 2025/05/24 14:07:28 by malsheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	key_release(t_mlx_key_data keydata, t_game *game)
 	else if (keydata.key == MLX_KEY_S)
 		game->player->u_d = 0;
 	else if (keydata.key == MLX_KEY_W)
-		game->player->u_d = 1;
+		game->player->u_d = 0;
 	else if (keydata.key == MLX_KEY_LEFT)
-		game->player->rot_flag = -0;
+		game->player->rot_flag = 0;
 	else if (keydata.key == MLX_KEY_RIGHT)
 		game->player->rot_flag = 0;
 	return (0);
@@ -51,19 +51,19 @@ int	mlx_key(t_mlx_key_data keydata, void *context)
 	return (0);
 }
 
-void	turn_player(t_game *game, int direction)
+void	turn_player(t_game *cub, int i)
 {
-	if (direction == 1)
+	if (i == 1)
 	{
-		game->player->plyr_angle += ROTATE_SPEED;
-		if (game->player->plyr_angle > 2 * M_PI)
-			game->player->plyr_angle -= 2 * M_PI;
+		cub->player->plyr_angle += ROTATE_SPEED;
+		if (cub->player->plyr_angle > 2 * M_PI)
+			cub->player->plyr_angle -= 2 * M_PI;
 	}
 	else
 	{
-		game->player->plyr_angle -= ROTATE_SPEED;
-		if (game->player->plyr_angle < 0)
-			game->player->plyr_angle += 2 * M_PI;
+		cub->player->plyr_angle -= ROTATE_SPEED;
+		if (cub->player->plyr_angle < 0)
+			cub->player->plyr_angle += 2 * M_PI;
 	}
 }
 
@@ -100,6 +100,4 @@ void	shift_player(t_game *game, double delta_x, double delta_y)
 		game->player->plyr_x = next_x;
 		game->player->plyr_y = next_y;
 	}
-	else
-		exit_failure(game, "Error: Collision detected, player movement blocked.\n");
 }

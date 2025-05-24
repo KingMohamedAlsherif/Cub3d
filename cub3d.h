@@ -3,71 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
+/*   By: malsheri <malsheri@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/05/15 16:56:48 by aishamagour      ###   ########.fr       */
+/*   Updated: 2025/05/24 16:22:59 by malsheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /* ************************************************************************** */
 
-
 #ifndef CUB3D_H
-# define CUB3D_H
+#define CUB3D_H
 
-# include <fcntl.h>
-# include "libft/libft.h"
-# include "minilibx_opengl/mlx.h"
-# include "GNL/get_next_line_bonus.h"
-# include "printf/ft_printf.h"
+#include <fcntl.h>
+#include "libft/libft.h"
+#include "mlx/mlx.h"
+#include "GNL/get_next_line_bonus.h"
+#include "printf/ft_printf.h"
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include <math.h>
-#include <stdbool.h>
+
+// Forward declaration of t_cub
+typedef struct s_cub t_cub;
+
 #include "src/parser/parse.h"
 
 // # define M_PI 3.14159265358979323846
-# define ON_DESTROY 17
-# define MLX_KEY_ESCAPE 53
-# define MLX_KEY_W 13
-# define MLX_KEY_A 0
-# define MLX_KEY_S 1
-# define MLX_KEY_D 2
-# define MLX_KEY_LEFT 123
-# define MLX_KEY_RIGHT 124
-# define MLX_PRESS 2
-# define MLX_RELEASE 3
-# define MLX_REPEAT 1
-
-
+#define ON_DESTROY 17
+#define MLX_KEY_ESCAPE 53
+#define MLX_KEY_W 13
+#define MLX_KEY_A 0
+#define MLX_KEY_S 1
+#define MLX_KEY_D 2
+#define MLX_KEY_LEFT 123
+#define MLX_KEY_RIGHT 124
+#define MLX_PRESS 2
+#define MLX_RELEASE 3
+#define MLX_REPEAT 1
 
 #define S_HEIGHT 1000
 #define S_WIDTH 1000
 #define TILE_SIZE 30
 #define FOV 60
-#define ROTATE_SPEED 0.2
+#define ROTATE_SPEED 0.1
 #define PLAYER_SPEED 4
 
 typedef struct s_point
 {
-    int		x;
-    int		y;
-}	t_point;
+	int x;
+	int y;
+} t_point;
 
-// typedef struct s_textures
-// {
-//     char *north;
-//     char *south;
-//     char *west;
-//     char *east;
-//     void *north_img; // MLX image pointer
-//     void *south_img;
-//     void *west_img;
-//     void *east_img;
-// } t_textures;
+
 typedef struct s_player
 {
 	int plyr_x;
@@ -78,8 +68,7 @@ typedef struct s_player
 	int r_l;
 	int u_d;
 	int direction;
-	// int m_x; // not used 
-	// int m_y; // not used
+
 } t_player;
 typedef struct s_map
 {
@@ -89,9 +78,9 @@ typedef struct s_map
 	int map_st;
 	int map_end;
 	int wall_counter; // remove
-	int plyr_counter; // remove 
-	int p_x; 
-	int p_y; 
+	int plyr_counter; // remove
+	int p_x;
+	int p_y;
 	char plyr_direction;
 } t_map;
 
@@ -122,15 +111,15 @@ typedef struct s_txtdata
 
 typedef struct s_txtrs
 {
-	t_txtdata	*no;
-	t_txtdata	*so;
-	t_txtdata	*we;
-	t_txtdata	*ea;
-	int			f_arr[3];
-	int			c_arr[3];
-	int			f_color;
-	int			c_color;
-}				t_txtrs;
+	t_txtdata *no;
+	t_txtdata *so;
+	t_txtdata *we;
+	t_txtdata *ea;
+	int f_arr[3];
+	int c_arr[3];
+	int f_color;
+	int c_color;
+} t_txtrs;
 
 typedef struct s_img
 {
@@ -146,8 +135,6 @@ typedef struct s_img
 	int tx_height;
 } t_img;
 
-
-
 typedef struct s_ray
 {
 	int indx;
@@ -160,19 +147,18 @@ typedef struct s_ray
 	int wall_flag;
 } t_ray;
 
+typedef struct s_my_color
+{
+	int floor_red;
+	int floor_green;
+	int floor_blue;
+	int ceiling_red;
+	int ceiling_green;
+	int ceiling_blue;
+	int floor_color;
+	int ceiling_color;
+} t_my_color;
 
-
-// typedef struct color
-// {
-// 	int floor_red;
-// 	int floor_green;
-// 	int floor_blue;
-// 	int ceiling_red;
-// 	int ceiling_green;
-// 	int ceiling_blue;
-// 	int floor_color;
-// 	int ceiling_color;
-// } t_color;
 typedef struct s_game
 {
 	void *mlx_ptr;
@@ -184,108 +170,60 @@ typedef struct s_game
 	t_img *img;
 	t_ray *ray;
 	t_txtrs *txtrs;
-	
 } t_game;
-
-// typedef struct s_cub
-// {
-// 	void				*mlx;
-// 	void				*win;
-// 	char				**rgb;
-// 	char				**map;
-// 	t_player			player;
-// 	unsigned long		floor;
-// 	unsigned long		ceiling;
-// 	int   width;
-//     int     height;
-// 	int					*color_buffer;
-// 	int					*tex;
-// 	bool				color_flag;
-// 	int					fd;
-// 	int					no_pos;
-// 	int					so_pos;
-// 	int					we_pos;
-// 	int					ea_pos;
-// 	t_textures          textures;
-// 	char		player_dir;
-// 	double player_x;
-//     double player_y;
-// 	void	*window;
-// 	// char	player;
-
-// 	int		rows;
-// 	int		cols;
-// 	int					p_flag;
-// 	int					floor_pos;
-// 	int					ceiling_pos;
-// 	char				*c_rgb;
-// 	char				*f_rgb;
-// }				t_cub;
-
-
-// typedef struct s_gnl
-// {
-// 	char	*line;
-// 	bool	error;
-// }	t_gnl;
-
-// typedef struct s_atoi
-// {
-// 	long	nbr;
-// 	bool	error;
-// }	t_atoi;
-
 
 // ------------> UTILS FUNCTIONS <------------
 // t_atoi	ft_atoi(const char *str);
-int	create_rgb(int *color_arr);
-void	calculate_angle(t_game *cub, char direction, int x, int y);
-void	ft_free(void *address, char target);
-void	use_atoi(t_game *cub, char *str_nbr, int *counter);
-static void	init_malloc(t_game *cub);
-static void	init_structs(t_game *cub, t_file *file, char *input_file);
-static void	init_txtr(t_txtdata *txtr);
-void	init(t_game *cub, char *input_file);
-void	exit_failure(t_game *cub, char *err_msg);
-int	exit_success(t_game *cub);
-
+// int create_rgb(int *color_arr);
+void calculate_angle(t_game *cub, char direction, int x, int y);
+void ft_free(void *address, char target);
+void use_atoi(t_game *cub, char *str_nbr, int *counter);
+static void init_malloc(t_game *cub);
+static void init_structs(t_game *cub, t_file *file, char *input_file);
+static void init_txtr(t_txtdata *txtr);
+void init(t_game *cub, char *input_file);
+void exit_failure(t_game *cub, char *err_msg);
+int exit_success(t_game *cub);
 
 // ------------> RAYCASTING FUNCTIONS <------------
-void	launch_game(t_game *cub);
-void  render_color_buffer(t_game *cub);
-void	project_rays(t_game *game);
-int	render_loop(void *param);
-void  render_map(t_game *cub);
-void	turn_player(t_game *game, int direction);
-void	update_player(t_game *game, double delta_x, double delta_y);
-int   return_color(t_game  *cub, int   tilecolor);
-void	start_the_game(t_game *cub);
-int game_loop(void  *param);
-void    hook(t_game  *cub, double    move_x, double  move_y);
+void launch_game(t_game *cub);
+void render_color_buffer(t_game *cub);
+void project_rays(t_game *game);
+int render_loop(void *param);
+void render_map(t_game *cub);
+void turn_player(t_game *game, int direction);
+void update_player(t_game *game, double delta_x, double delta_y);
+int return_color(t_game *cub, int tilecolor);
+void start_the_game(t_game *cub);
+int game_loop(void *param);
+void hook(t_game *cub, double move_x, double move_y);
 t_map *init_argument();
-void    init_player_data(t_game  cub);
-int	key_reles(t_mlx_key_data keydata, t_game *cub);
-int	mlx_key(t_mlx_key_data keydata, void *ml);
-void    rotate_player(t_game *cub, int i);
-int	check_collision(t_map *data, float new_x, float new_y);
-void	move_player(t_game *cub, double move_x, double move_y);
-int	inter_check(float angle, float *inter, float *step, int is_horizon);
-int	wall_hit(float x, float y, t_game *cub);
-float	get_h_inter(t_game *mlx, float angl);
-void	shift_player(t_game *game, double delta_x, double delta_y);
-float	get_v_inter(t_game *mlx, float angl);
-void	cast_rays(t_game *mlx);
-t_txtdata	*fetch_texture(t_game *game, int is_hori);
-double	get_texture_coord(t_game *game, t_txtdata *txt, int is_hori);
-void	draw_floor_ceiling(t_game *cub, int ray, int t_pix, int b_pix);
-int	unit_circle(float angle, char c);
-void	my_pixel_put(t_img *img, int x, int y, int color);
-void	draw_wall(t_game *cub, int t_pix, int b_pix, double wall_h);
-float	nor_angle(float angle);
-void	render_wall(t_game *cub, int ray);
-int	key_release(t_mlx_key_data keydata, t_game *game);
-void	my_mlx_pixel_put(t_game *cub, int x, int y, int color);
-// void    convert_parsing_to_cub3d(t_game *cub, t_cub *parsing);
-// void    convert_textures(t_game *cub, t_cub *parsing);
+void init_player_data(t_game cub);
+int key_reles(t_mlx_key_data keydata, t_game *cub);
+int mlx_key(t_mlx_key_data keydata, void *ml);
+void rotate_player(t_game *cub, int i);
+int check_collision(t_map *data, float new_x, float new_y);
+void move_player(t_game *cub, double move_x, double move_y);
+int inter_check(float angle, float *inter, float *step, int is_horizon);
+int wall_hit(float x, float y, t_game *cub);
+float get_h_inter(t_game *mlx, float angl);
+void shift_player(t_game *game, double delta_x, double delta_y);
+float get_v_inter(t_game *mlx, float angl);
+void cast_rays(t_game *mlx);
+t_txtdata *fetch_texture(t_game *game, int is_hori);
+double get_texture_coord(t_game *game, t_txtdata *txt, int is_hori);
+void draw_floor_ceiling(t_game *cub, int ray, int t_pix, int b_pix);
+int unit_circle(float angle, char c);
+void my_pixel_put(t_img *img, int x, int y, int color);
+void draw_wall(t_game *cub, int t_pix, int b_pix, double wall_h);
+float nor_angle(float angle);
+void render_wall(t_game *cub, int ray);
+int key_release(t_mlx_key_data keydata, t_game *game);
+void my_mlx_pixel_put(t_game *cub, int x, int y, int color);
+
+// _______________ After parsing _______________
+void convert_textures(t_game *cub, t_cub *parsing);
+static void validate_img(t_game *cub, char *img_path, t_txtdata *txtr);
+void convert_parsing_to_cub3d(t_game *cub, t_cub *parsing);
 
 #endif

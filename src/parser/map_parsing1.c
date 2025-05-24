@@ -3,18 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   map_parsing1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aishamagoury <aishamagoury@student.42.f    +#+  +:+       +#+        */
+/*   By: malsheri <malsheri@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 11:56:45 by amagoury          #+#    #+#             */
-/*   Updated: 2025/05/15 17:32:34 by aishamagour      ###   ########.fr       */
+/*   Updated: 2025/05/24 14:09:33 by malsheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 
-int	map_name(char *map)
+int map_name(char *map)
 {
-	if ((ft_strncmp(&map[ft_strlen(map)] - 4, ".cub", 4)) != 0)
+	int len;
+
+	len = ft_strlen(map);
+	if (len < 4 || ft_strncmp(&map[len - 4], ".cub", 4) != 0)
 	{
 		write(2, "not valid name\n", 16);
 		return (-1);
@@ -22,34 +25,66 @@ int	map_name(char *map)
 	return (1);
 }
 
-void parse_cub_file(t_cub *cub, char *filename)
+static void pad_map_rows(t_cub *game)
 {
-    char *line;
+	int i;
+	int len;
+	char *new_row;
 
-    cub->fd = open(filename, O_RDONLY);
-    if (cub->fd < 0)
-        exit_error(cub, "Cannot open file");
-    while ((line = get_next_line(cub->fd))) // Use return value directly
-    {
-        if (line[0] && line[0] != '\n') // Skip empty lines
-            textures_parsing(cub, line);
-        else
-            free(line); // Free empty lines
-    }
-    // No need to free line after loop, as get_next_line returns NULL on EOF
-    // Validate textures and colors
-    if (!cub->no_pos || !cub->so_pos || !cub->we_pos || !cub->ea_pos || !cub->floor_pos || !cub->ceiling_pos)
-        exit_error(cub, "Missing texture or color");
-    // Parse map into cub->map, cub->map_cpy, etc. (add later)
-    close(cub->fd);
-    cub->fd = -1;
+	i = 0;
+	while (i < game->rows)
+	{
+		len = ft_strlen(game->map[i]);
+		if (len < game->cols)
+		{
+			new_row = malloc(game->cols + 1);
+			if (!new_row)
+				exit_error(game,
+						   "Memory allocation failed while padding map");
+			ft_memcpy(new_row, game->map[i], len);
+			ft_memset(new_row + len, ' ', game->cols - len);
+			new_row[game->cols] = '\0';
+			free(game->map[i]);
+			game->map[i] = new_row;
+		}
+		i++;
+	}
 }
 
-
- void	assign_map(t_cub *game, char **map_lines, int count)
+static void is_player(t_game *cub, char *map_line, int y)
 {
-	int	i;
+	t_map *map;
+	int x;
 
+	if (!map_line || !*map_line)
+		return;
+	x = 0;
+	map = cub->map;
+	while (map_line[x])
+	{
+		if (map_line[x] != ' ' && map_line[x] != '0' && map_line[x] != '1')
+		{
+			if (!ft_strchr("NSWE", map_line[x]))
+				exit_failure(cub, "MAP_CHARS_ERR");
+			map->plyr_direction = map_line[x];
+			map->plyr_counter++;
+			map->p_x = x;
+			map->p_y = y;
+			// printf("Player found at (%d, %d) facing %c\n", x, y, map_line[x]);
+			calculate_angle(cub, map_line[x], x, y);
+		}
+		x++;
+	}
+	if (map->plyr_counter > 1)
+		exit_failure(cub, "MAP_CHARS_ERR");
+}
+
+void assign_map(t_cub *game, char **map_lines, int count, t_game *cub)
+{
+	int i;
+	int len;
+
+	game->cols = 0;
 	game->map = malloc(sizeof(char *) * (count + 1));
 	if (!game->map)
 		exit_error(game, "Memory allocation failed for map");
@@ -57,11 +92,17 @@ void parse_cub_file(t_cub *cub, char *filename)
 	while (++i < count)
 	{
 		game->map[i] = ft_strdup(map_lines[i]);
-		if ((int)ft_strlen(map_lines[i]) > game->cols)
-			game->cols = ft_strlen(map_lines[i]);
+		len = ft_strlen(map_lines[i]);
+		if ((int)len > game->cols)
+			game->cols = len;
+		// Call is_player to check for player assignment
+		is_player(cub, map_lines[i], i);
 		free(map_lines[i]);
 	}
+	game->width = game->cols * TILE_SIZE;
+	game->height = count * TILE_SIZE;
 	game->map[count] = NULL;
 	game->rows = count;
 	free(map_lines);
+	pad_map_rows(game);
 }
