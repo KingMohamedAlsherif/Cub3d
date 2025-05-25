@@ -6,7 +6,7 @@
 /*   By: malsheri <malsheri@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 08:05:22 by amagoury          #+#    #+#             */
-/*   Updated: 2025/05/24 13:04:56 by malsheri         ###   ########.fr       */
+/*   Updated: 2025/05/25 20:18:12 by malsheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,3 @@ int	valid_characters(char **map, t_cub *game)
 		return (write(2, "Error: no player found\n", 24), 1);
 	return (0);
 }
-
-

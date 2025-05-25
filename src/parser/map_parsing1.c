@@ -6,15 +6,15 @@
 /*   By: malsheri <malsheri@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 11:56:45 by amagoury          #+#    #+#             */
-/*   Updated: 2025/05/25 19:46:26 by malsheri         ###   ########.fr       */
+/*   Updated: 2025/05/25 20:27:01 by malsheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 
-int map_name(char *map)
+int	map_name(char *map)
 {
-	int len;
+	int	len;
 
 	len = ft_strlen(map);
 	if (len < 4 || ft_strncmp(&map[len - 4], ".cub", 4) != 0)
@@ -25,11 +25,11 @@ int map_name(char *map)
 	return (1);
 }
 
-static void pad_map_rows(t_cub *game)
+static void	pad_map_rows(t_cub *game)
 {
-	int i;
-	int len;
-	char *new_row;
+	int		i;
+	int		len;
+	char	*new_row;
 
 	i = 0;
 	while (i < game->rows)
@@ -40,7 +40,7 @@ static void pad_map_rows(t_cub *game)
 			new_row = malloc(game->cols + 1);
 			if (!new_row)
 				exit_error(game,
-						   "Memory allocation failed while padding map");
+					"Memory allocation failed while padding map");
 			ft_memcpy(new_row, game->map[i], len);
 			ft_memset(new_row + len, ' ', game->cols - len);
 			new_row[game->cols] = '\0';
@@ -51,13 +51,13 @@ static void pad_map_rows(t_cub *game)
 	}
 }
 
-static void is_player(t_game *cub, char *map_line, int y)
+static void	is_player(t_game *cub, char *map_line, int y)
 {
-	t_map *map;
-	int x;
+	t_map	*map;
+	int		x;
 
 	if (!map_line || !*map_line)
-		return;
+		return ;
 	x = 0;
 	map = cub->map;
 	while (map_line[x])
@@ -78,10 +78,10 @@ static void is_player(t_game *cub, char *map_line, int y)
 		exit_failure(cub, "MAP_CHARS_ERR");
 }
 
-void assign_map(t_cub *game, char **map_lines, int count, t_game *cub)
+void	assign_map(t_cub *game, char **map_lines, int count, t_game *cub)
 {
-	int i;
-	int len;
+	int	i;
+	int	len;
 
 	game->cols = 0;
 	game->map = malloc(sizeof(char *) * (count + 1));

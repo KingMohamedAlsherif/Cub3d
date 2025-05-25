@@ -6,7 +6,7 @@
 /*   By: malsheri <malsheri@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 16:10:50 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/05/24 13:41:47 by malsheri         ###   ########.fr       */
+/*   Updated: 2025/05/25 20:22:16 by malsheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "../cub3d.h"
 
 // Structs
-typedef struct s_game t_game;
+typedef struct s_game	t_game;
 
 typedef struct s_color_config
 {
@@ -103,8 +103,8 @@ typedef struct s_cub
 
 int		map_name(char *map);
 int		check_wall(t_cub *game);
-void is_parsing(t_cub *game, char *file, t_game *cub);
-int valid_characters(char **map, t_cub *game);
+void	is_parsing(t_cub *game, char *file, t_game *cub);
+int		valid_characters(char **map, t_cub *game);
 void	free_textures(t_cub *cub);
 void	exit_error(t_cub *cub, char *msg);
 t_cub	*textures_parsing(t_cub *cub, char *line);
@@ -117,8 +117,8 @@ void	assign_color(t_cub *cub, char *line, t_color_config *cfg);
 void	parse_cub_file(t_cub *cub, char *filename);
 void	parse_file_lines(t_cub *game,
 			int *line_count, char ***map_lines);
-void assign_map(t_cub *game, char **map_lines, int count, t_game *cub);
-int check_void(int i, int j, t_cub *game);
+void	assign_map(t_cub *game, char **map_lines, int count, t_game *cub);
+int		check_void(int i, int j, t_cub *game);
 void	free_map_lines(char **map_lines, int line_count);
 void	process_map_line(t_cub *game,
 			char ***map_lines, int *line_count, char *line);

@@ -1,21 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: malsheri <malsheri@student.42abudhabi.a    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/25 20:09:45 by malsheri          #+#    #+#             */
+/*   Updated: 2025/05/25 20:12:14 by malsheri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../cub3d.h"
-
-// void	use_atoi(t_game *cub, char *str_nbr, int *counter)
-// {
-// 	t_atoi	res;
-// 	int		nbr;
-
-// 	if (!str_nbr || !*str_nbr)
-// 		return (exit_failure(cub, "COLOR_ERR"));
-// 	res = ft_atoi(str_nbr);
-// 	if (res.error)
-// 		return (exit_failure(cub, "COLOR_ERR"));
-// 	nbr = (int)res.nbr;
-// 	if (nbr < 0 || nbr > 255)
-// 		return (exit_failure(cub, "COLOR_ERR"));
-// 	*counter = nbr;
-// }
 
 void	calculate_angle(t_game *cub, char direction, int x, int y)
 {

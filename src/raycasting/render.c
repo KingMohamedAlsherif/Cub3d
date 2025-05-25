@@ -6,7 +6,7 @@
 /*   By: malsheri <malsheri@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 15:46:11 by malsheri          #+#    #+#             */
-/*   Updated: 2025/05/25 18:52:20 by malsheri         ###   ########.fr       */
+/*   Updated: 2025/05/25 20:17:15 by malsheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,16 @@ float	nor_angle(float angle)
 	return (angle);
 }
 
-void render_wall(t_game *cub, int ray)
+void	render_wall(t_game *cub, int ray)
 {
-	double wall_h;
-	double b_pix;
-	double t_pix;
+	double	wall_h;
+	double	b_pix;
+	double	t_pix;
 
-	cub->ray->distance *= cos(nor_angle(cub->ray->ray_angle - cub->player->plyr_angle));
-	wall_h = (TILE_SIZE / cub->ray->distance) * ((S_WIDTH / 2) / tan(cub->player->fov_rd / 2));
+	cub->ray->distance *= cos(nor_angle(cub->ray->ray_angle
+				- cub->player->plyr_angle));
+	wall_h = (TILE_SIZE / cub->ray->distance)
+		* ((S_WIDTH / 2) / tan(cub->player->fov_rd / 2));
 	b_pix = (S_HEIGHT / 2) + (wall_h / 2);
 	t_pix = (S_HEIGHT / 2) - (wall_h / 2);
 	if (b_pix > S_HEIGHT)

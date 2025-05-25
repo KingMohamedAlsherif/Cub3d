@@ -6,19 +6,14 @@
 /*   By: malsheri <malsheri@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 21:44:03 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/05/25 19:58:48 by malsheri         ###   ########.fr       */
+/*   Updated: 2025/05/25 20:30:40 by malsheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 #include "parse.h"
 
-static void validate_conversion(t_game *cub);
-void validate_map_dimensions(t_cub *game);
-static void print_struct(t_cub *cub);
-static void show_map(t_cub *cub);
-
-void convert_parsing_to_cub3d(t_game *cub, t_cub *parsing)
+void	convert_parsing_to_cub3d(t_game *cub, t_cub *parsing)
 {
 	cub->map->map_arr = parsing->map;
 	cub->txtrs->f_color = parsing->colors.floor_color;
@@ -34,19 +29,19 @@ void convert_parsing_to_cub3d(t_game *cub, t_cub *parsing)
 	convert_textures(cub, parsing);
 }
 
-static void validate_img(t_game *cub, char *img_path, t_txtdata *txtr)
+static void	validate_img(t_game *cub, char *img_path, t_txtdata *txtr)
 {
-	int width;
-	int height;
+	int	width;
+	int	height;
 
 	txtr->img = mlx_xpm_file_to_image(cub->mlx_ptr, img_path,
-									  &width, &height);
+			&width, &height);
 	if (!txtr->img)
 		exit_failure(cub, "Invalid texture path");
 	txtr->height = height;
 	txtr->width = width;
 	txtr->addr = mlx_get_map_addr(txtr->img,
-								  &txtr->bpp, &txtr->line_len, &txtr->endian);
+			&txtr->bpp, &txtr->line_len, &txtr->endian);
 	if (!txtr->addr)
 	{
 		mlx_destroy_image(cub->mlx_ptr, txtr->img);
@@ -54,7 +49,7 @@ static void validate_img(t_game *cub, char *img_path, t_txtdata *txtr)
 	}
 }
 
-void convert_textures(t_game *cub, t_cub *parsing)
+void	convert_textures(t_game *cub, t_cub *parsing)
 {
 	if (parsing->textures.north)
 		validate_img(cub, parsing->textures.north, cub->txtrs->no);

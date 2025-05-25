@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parsing2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amagoury <amagoury@student.42.fr>          +#+  +:+       +#+        */
+/*   By: malsheri <malsheri@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 12:35:55 by aishamagour       #+#    #+#             */
-/*   Updated: 2025/05/21 08:33:32 by amagoury         ###   ########.fr       */
+/*   Updated: 2025/05/25 20:05:11 by malsheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,7 @@ int	check_wall(t_cub *game)
 			if (c == '0' || c == ' ' || c == game->player)
 			{
 				if (!check_void(i, j, game))
-				{
-					write(2, "Error: Map is not closed\n", 26);
 					return (-1);
-				}
 			}
 			j++;
 		}
