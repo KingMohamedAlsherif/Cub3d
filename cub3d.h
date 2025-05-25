@@ -6,7 +6,7 @@
 /*   By: malsheri <malsheri@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2025/05/24 16:22:59 by malsheri         ###   ########.fr       */
+/*   Updated: 2025/05/25 18:54:56 by malsheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 
 #include <fcntl.h>
 #include "libft/libft.h"
-#include "mlx/mlx.h"
 #include "GNL/get_next_line_bonus.h"
 #include "printf/ft_printf.h"
 #include <unistd.h>
@@ -25,6 +24,11 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <math.h>
+#if defined(__APPLE__)
+#include "mlx/mlx.h"
+#elif defined(__linux__)
+#include "minilibx-linux/mlx.h"
+#endif
 
 // Forward declaration of t_cub
 typedef struct s_cub t_cub;

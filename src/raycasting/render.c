@@ -6,7 +6,7 @@
 /*   By: malsheri <malsheri@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 15:46:11 by malsheri          #+#    #+#             */
-/*   Updated: 2025/05/24 12:47:06 by malsheri         ###   ########.fr       */
+/*   Updated: 2025/05/25 18:52:20 by malsheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	draw_wall(t_game *cub, int t_pix, int b_pix, double wall_h)
 	double		y_o;
 	double		fact;
 
-	// printf("Drawing wall from %d to %d with height %.2f\n", t_pix, b_pix, wall_h);
 	txt = fetch_texture(cub, cub->ray->wall_flag);
 	fact = (double)txt->height / wall_h;
 	x_o = get_texture_coord(cub, txt, cub->ray->wall_flag);

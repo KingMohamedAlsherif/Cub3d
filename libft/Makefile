@@ -11,7 +11,7 @@ BONUS 		= ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstadd_back.c ft_lstlast
 				ft_lstdelone.c  ft_lstclear.c ft_lstiter.c ft_lstmap.c\
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3
 AR = ar rcs
 
 OBJ_FILES_MANDATORY = $(MANDATORY:.c=.o)

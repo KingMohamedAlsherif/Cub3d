@@ -6,7 +6,7 @@
 #    By: malsheri <malsheri@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/05 16:30:23 by amagoury          #+#    #+#              #
-#    Updated: 2025/05/24 13:31:30 by malsheri         ###   ########.fr        #
+#    Updated: 2025/05/25 18:59:17 by malsheri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,16 +38,26 @@ OBJS 		=	$(SRCS:.c=.o)
 
 CC 			=	cc
 
-CFLAGS		=	-Imlx -IGNL -Iprintf -fsanitize=address -g3
+CFLAGS		=	-Imlx -IGNL -Iprintf  -g3
  #-fsanitize=address -g3
 
 LIBFT		=	libft/libft.a
 
 PRINTF		=	printf/libftprintf.a
 
-MLX 		=	mlx/libmlx.a
+UNAME_S := $(shell uname -s)
 
-MLX_FLAGS	=	-Lmlx -lmlx -framework OpenGL -framework AppKit
+ifeq ($(UNAME_S), Linux)
+    MLX_DIR = minilibx-linux
+    MLX = $(MLX_DIR)/libmlx.a
+    MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
+    CFLAGS += -I$(MLX_DIR)
+else
+    MLX_DIR = mlx
+    MLX = $(MLX_DIR)/libmlx.a
+    MLX_FLAGS = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
+    CFLAGS += -I$(MLX_DIR)
+endif
 
 all : $(NAME)
 
@@ -55,7 +65,7 @@ $(LIBFT):
 	$(MAKE) -C libft
 
 $(MLX):
-	$(MAKE) -C mlx
+	$(MAKE) -C $(MLX_DIR)
 
 $(PRINTF):
 	$(MAKE) -C printf
@@ -74,7 +84,7 @@ clean :
 fclean: clean
 	$(MAKE) -C libft fclean
 	$(MAKE) -C printf fclean
-	$(MAKE) -C mlx clean
+	$(MAKE) -C $(MLX_DIR) clean
 	rm -rf $(NAME)
 re:	fclean all
 

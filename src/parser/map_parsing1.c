@@ -6,7 +6,7 @@
 /*   By: malsheri <malsheri@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 11:56:45 by amagoury          #+#    #+#             */
-/*   Updated: 2025/05/24 14:09:33 by malsheri         ###   ########.fr       */
+/*   Updated: 2025/05/25 19:46:26 by malsheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ static void is_player(t_game *cub, char *map_line, int y)
 			map->plyr_counter++;
 			map->p_x = x;
 			map->p_y = y;
-			// printf("Player found at (%d, %d) facing %c\n", x, y, map_line[x]);
 			calculate_angle(cub, map_line[x], x, y);
 		}
 		x++;
@@ -95,12 +94,11 @@ void assign_map(t_cub *game, char **map_lines, int count, t_game *cub)
 		len = ft_strlen(map_lines[i]);
 		if ((int)len > game->cols)
 			game->cols = len;
-		// Call is_player to check for player assignment
 		is_player(cub, map_lines[i], i);
 		free(map_lines[i]);
 	}
-	game->width = game->cols * TILE_SIZE;
-	game->height = count * TILE_SIZE;
+	game->width = game->cols;
+	game->height = count;
 	game->map[count] = NULL;
 	game->rows = count;
 	free(map_lines);

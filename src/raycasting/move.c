@@ -6,7 +6,7 @@
 /*   By: malsheri <malsheri@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 15:46:11 by malsheri          #+#    #+#             */
-/*   Updated: 2025/05/24 14:07:28 by malsheri         ###   ########.fr       */
+/*   Updated: 2025/05/25 19:49:10 by malsheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ int	detect_collision(t_map *map_data, float pos_x, float pos_y)
 	grid_x2 = (int)(pos_x + 5) / TILE_SIZE;
 	grid_y2 = (int)(pos_y + 5) / TILE_SIZE;
 	if (grid_x1 < 0 || grid_x1 >= map_data->map_width || grid_y1 < 0
-		|| grid_y1 >= map_data->map_height || grid_x2 < 0 || grid_x2 >= map_data->map_width
+		|| grid_y1 >= map_data->map_height || grid_x2 < 0
+		|| grid_x2 >= map_data->map_width
 		|| grid_y2 < 0 || grid_y2 >= map_data->map_height)
 		return (1);
 	return (map_data->map_arr[grid_y1][grid_x1] == '1'

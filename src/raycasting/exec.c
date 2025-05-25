@@ -6,7 +6,7 @@
 /*   By: malsheri <malsheri@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 15:39:37 by malsheri          #+#    #+#             */
-/*   Updated: 2025/05/24 13:58:18 by malsheri         ###   ########.fr       */
+/*   Updated: 2025/05/25 19:48:34 by malsheri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,13 @@ void	launch_game(t_game *cub)
 int	render_loop(void *param)
 {
 	t_game	*game;
-	
-	// printf("Rendering loop called\n");
+
 	game = (t_game *)param;
 	if (game->img->img)
 		mlx_destroy_image(game->mlx_ptr, game->img->img);
 	game->img->img = mlx_new_image(game->mlx_ptr, S_WIDTH, S_HEIGHT);
 	game->img->addr = mlx_get_map_addr(game->img->img, &game->img->bpp,
 			&game->img->line_len, &game->img->endian);
-	// printf("Rendering loop: img->img = %p, addr = %p\n", game->img->img, game->img->addr);
 	update_player(game, 0, 0);
 	project_rays(game);
 	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->img->img, 0, 0);
